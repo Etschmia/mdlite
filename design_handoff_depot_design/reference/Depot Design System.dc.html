@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#128a63">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#128a63"/>
+    <g fill="none" stroke="#ffffff" stroke-width="42" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M430 250v300h300"/>
+      <path d="M495 470l85-110 100 80 130-185"/>
+    </g>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;background:oklch(0.977 0.008 84)}
+  :root{
+    --font-sans:'Schibsted Grotesk',ui-sans-serif,system-ui,sans-serif;
+    --font-display:'Bricolage Grotesque','Schibsted Grotesk',ui-sans-serif,sans-serif;
+    --font-mono:'Geist Mono',ui-monospace,monospace;
+    --background:oklch(0.977 0.008 84);
+    --foreground:oklch(0.245 0.012 56);
+    --card:oklch(1 0 0);
+    --card-foreground:oklch(0.245 0.012 56);
+    --popover:oklch(1 0 0);
+    --popover-foreground:oklch(0.245 0.012 56);
+    --primary:oklch(0.596 0.145 163);
+    --primary-foreground:oklch(0.985 0.001 106.423);
+    --secondary:oklch(0.95 0.026 163);
+    --secondary-foreground:oklch(0.378 0.077 168.94);
+    --muted:oklch(0.951 0.012 84);
+    --muted-foreground:oklch(0.52 0.018 60);
+    --accent:oklch(0.954 0.038 80);
+    --accent-foreground:oklch(0.473 0.137 46.201);
+    --destructive:oklch(0.577 0.245 27.325);
+    --success:oklch(0.596 0.145 163);
+    --warning:oklch(0.769 0.16 70);
+    --info:oklch(0.62 0.13 233);
+    --link:oklch(0.47 0.12 164);
+    --link-hover:oklch(0.38 0.11 164);
+    --link-visited:oklch(0.46 0.12 300);
+    --code-bg:oklch(0.972 0.011 83);
+    --code-border:oklch(0.9 0.014 84);
+    --code-inline-bg:oklch(0.95 0.02 84);
+    --syn-keyword:oklch(0.52 0.17 293);
+    --syn-string:oklch(0.5 0.13 150);
+    --syn-number:oklch(0.55 0.14 55);
+    --syn-comment:oklch(0.62 0.02 80);
+    --syn-function:oklch(0.5 0.14 233);
+    --syn-tag:oklch(0.55 0.19 27);
+    --syn-attr:oklch(0.52 0.13 55);
+    --syn-punct:oklch(0.45 0.02 60);
+    --border:oklch(0.912 0.014 84);
+    --input:oklch(0.912 0.014 84);
+    --ring:oklch(0.596 0.145 163);
+    --chart-1:oklch(0.696 0.17 162.48);
+    --chart-2:oklch(0.746 0.16 232.661);
+    --chart-3:oklch(0.702 0.183 293.541);
+    --chart-4:oklch(0.828 0.189 84.429);
+    --chart-5:oklch(0.712 0.194 13.428);
+    --shadow-soft:0 1px 2px oklch(0.25 0.04 70 / 0.05),0 16px 40px -20px oklch(0.3 0.08 70 / 0.16);
+    --canvas-gradient:radial-gradient(1100px 520px at 88% -10%,oklch(0.94 0.05 163 / 0.5),transparent 60%),radial-gradient(900px 480px at -8% 4%,oklch(0.96 0.045 80 / 0.55),transparent 55%);
+  }
+  [data-theme="dark"]{
+    --background:oklch(0.165 0.005 56);
+    --foreground:oklch(0.985 0.001 106.423);
+    --card:oklch(0.216 0.006 56.043);
+    --card-foreground:oklch(0.985 0.001 106.423);
+    --popover:oklch(0.216 0.006 56.043);
+    --popover-foreground:oklch(0.985 0.001 106.423);
+    --primary:oklch(0.696 0.17 162.48);
+    --primary-foreground:oklch(0.19 0.02 160);
+    --secondary:oklch(0.3 0.03 165);
+    --secondary-foreground:oklch(0.92 0.03 165);
+    --link:oklch(0.8 0.14 163);
+    --link-hover:oklch(0.88 0.12 163);
+    --link-visited:oklch(0.78 0.11 300);
+    --code-bg:oklch(0.24 0.008 56);
+    --code-border:oklch(1 0 0 / 0.1);
+    --code-inline-bg:oklch(1 0 0 / 0.08);
+    --syn-keyword:oklch(0.8 0.13 300);
+    --syn-string:oklch(0.8 0.14 150);
+    --syn-number:oklch(0.82 0.12 60);
+    --syn-comment:oklch(0.62 0.02 80);
+    --syn-function:oklch(0.78 0.12 233);
+    --syn-tag:oklch(0.78 0.15 20);
+    --syn-attr:oklch(0.82 0.12 60);
+    --syn-punct:oklch(0.75 0.02 80);
+    --muted:oklch(0.268 0.007 34.298);
+    --muted-foreground:oklch(0.709 0.01 56.259);
+    --accent:oklch(0.31 0.04 70);
+    --accent-foreground:oklch(0.9 0.05 75);
+    --destructive:oklch(0.704 0.191 22.216);
+    --success:oklch(0.696 0.17 162.48);
+    --warning:oklch(0.82 0.17 80);
+    --info:oklch(0.72 0.14 233);
+    --border:oklch(1 0 0 / 0.1);
+    --input:oklch(1 0 0 / 0.15);
+    --ring:oklch(0.696 0.17 162.48);
+    --chart-1:oklch(0.696 0.17 162.48);
+    --chart-2:oklch(0.746 0.16 232.661);
+    --chart-3:oklch(0.702 0.183 293.541);
+    --chart-4:oklch(0.828 0.189 84.429);
+    --chart-5:oklch(0.712 0.194 13.428);
+    --shadow-soft:0 1px 2px rgba(0,0,0,0.3),0 18px 44px -22px rgba(0,0,0,0.6);
+    --canvas-gradient:radial-gradient(1100px 520px at 88% -10%,oklch(0.5 0.09 163 / 0.18),transparent 60%),radial-gradient(900px 480px at -8% 4%,oklch(0.55 0.07 72 / 0.16),transparent 55%);
+  }
+  @keyframes om-overlay{from{opacity:0}to{opacity:1}}
+  @keyframes om-sheet{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+  @keyframes ds-spin{to{transform:rotate(360deg)}}
+  .om-scroll{scroll-behavior:smooth}
+  html{scroll-behavior:smooth}
+</style>
+</helmet>
+
+<div data-theme="{{ themeAttr }}" style="min-height:100vh;background:var(--background);background-image:var(--canvas-gradient);background-attachment:fixed;color:var(--foreground);font-family:var(--font-sans);font-variant-numeric:tabular-nums;line-height:1.5">
+
+  <!-- ============ TOP BAR ============ -->
+  <header style="position:sticky;top:0;z-index:60;backdrop-filter:blur(12px);background:color-mix(in oklab,var(--card) 78%,transparent);border-bottom:1px solid var(--border)">
+    <div style="max-width:1180px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:20px">
+      <div style="display:flex;align-items:center;gap:11px;flex:none">
+        <div style="width:34px;height:34px;border-radius:11px;background:var(--primary);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-soft)">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--primary-foreground)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 4 3 5-7"/></svg>
+        </div>
+        <div style="line-height:1.15">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:-.01em">Depot Design</div>
+          <div style="font-size:11px;color:var(--muted-foreground)">System v1.0</div>
+        </div>
+      </div>
+      <nav style="display:none;gap:4px;margin-left:8px;flex:1" class="om-topnav">
+      </nav>
+      <div style="display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end">
+        <a href="#farben" style="text-decoration:none;color:var(--muted-foreground);font-size:13px;font-weight:500;padding:7px 11px;border-radius:9px">Farben</a>
+        <a href="#typografie" style="text-decoration:none;color:var(--muted-foreground);font-size:13px;font-weight:500;padding:7px 11px;border-radius:9px">Typografie</a>
+        <a href="#form" style="text-decoration:none;color:var(--muted-foreground);font-size:13px;font-weight:500;padding:7px 11px;border-radius:9px">Form</a>
+        <a href="#bausteine" style="text-decoration:none;color:var(--muted-foreground);font-size:13px;font-weight:500;padding:7px 11px;border-radius:9px">Bausteine</a>
+        <a href="Markdown Editor Lite.dc.html" style="text-decoration:none;color:var(--link);font-size:13px;font-weight:600;padding:7px 11px;border-radius:9px">Editor ↗</a>
+        <a href="#vorlagen" style="text-decoration:none;color:var(--muted-foreground);font-size:13px;font-weight:500;padding:7px 11px;border-radius:9px">Vorlagen</a>
+        <button onClick="{{ toggleTheme }}" style="display:inline-flex;align-items:center;gap:7px;margin-left:6px;padding:8px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--foreground);font:600 13px var(--font-sans);cursor:pointer;box-shadow:var(--shadow-soft)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span>{{ themeLabel }}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section style="max-width:1180px;margin:0 auto;padding:72px 32px 28px">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:color-mix(in oklab,var(--primary) 12%,transparent);color:var(--primary);font:600 12px var(--font-sans);letter-spacing:.04em;margin-bottom:20px">
+      <span style="width:7px;height:7px;border-radius:999px;background:var(--primary)"></span>
+      Wiederverwendbares Design-System
+    </div>
+    <h1 style="font-family:var(--font-display);font-weight:800;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.03em;margin:0 0 20px;max-width:16ch">Warm, ruhig, datenklar.</h1>
+    <p style="font-size:18px;line-height:1.6;color:var(--muted-foreground);max-width:62ch;margin:0 0 34px">Ein vollständiges Baukastensystem auf Basis des Depot-Portals: Creme-Canvas mit weichem Mint- und Pfirsich-Licht, weiße Karten, Emerald als Akzent. Gebaut für Dashboards, interne Tools und Web-Apps aller Art — hell und dunkel.</p>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-soft)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><circle cx="16.5" cy="14.5" r="2.5"/></svg>
+        </div>
+        <div><div style="font-weight:600;font-size:14px">3 Schriften</div><div style="font-size:12px;color:var(--muted-foreground)">Bricolage · Schibsted · Geist Mono</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-soft)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9c0-1-9 .5-9-9Z"/></svg>
+        </div>
+        <div><div style="font-weight:600;font-size:14px">Hell &amp; Dunkel</div><div style="font-size:12px;color:var(--muted-foreground)">Ein Klick oben rechts</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-soft)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </div>
+        <div><div style="font-weight:600;font-size:14px">9 Bausteingruppen</div><div style="font-size:12px;color:var(--muted-foreground)">+ 3 fertige Vorlagen</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FARBEN ============ -->
+  <section id="farben" style="max-width:1180px;margin:0 auto;padding:56px 32px;scroll-margin-top:80px">
+    <div style="font:600 12px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Fundament</div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em;margin:0 0 8px">Farben</h2>
+    <p style="font-size:15px;color:var(--muted-foreground);max-width:60ch;margin:0 0 28px">Alle Farben sind als CSS-Variablen (Tokens) definiert und wechseln automatisch mit dem Theme. Die Felder unten zeigen immer den aktuellen Wert — schalte oben auf Dunkel um.</p>
+
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin:0 0 12px">Marke &amp; Akzent</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:32px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--primary)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Primary</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--primary · Emerald</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--secondary)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Secondary</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--secondary · Mint</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--accent)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Accent</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--accent · Pfirsich</div></div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin:0 0 12px">Status &amp; Signal</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:32px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--success)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Erfolg</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--success</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--warning)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Warnung</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--warning</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--info)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Info</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--info</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:80px;background:var(--destructive)"></div>
+        <div style="padding:12px 14px"><div style="font-weight:600;font-size:13px">Gefahr</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--destructive</div></div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin:0 0 12px">Neutrale &amp; Flächen</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-bottom:32px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:64px;background:var(--background)"></div>
+        <div style="padding:10px 13px"><div style="font-weight:600;font-size:12px">Canvas</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--background</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:64px;background:var(--card);border-bottom:1px solid var(--border)"></div>
+        <div style="padding:10px 13px"><div style="font-weight:600;font-size:12px">Karte</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--card</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:64px;background:var(--muted)"></div>
+        <div style="padding:10px 13px"><div style="font-weight:600;font-size:12px">Gedämpft</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--muted</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:64px;background:var(--border)"></div>
+        <div style="padding:10px 13px"><div style="font-weight:600;font-size:12px">Rahmen</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--border</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft)">
+        <div style="height:64px;background:var(--foreground)"></div>
+        <div style="padding:10px 13px"><div style="font-weight:600;font-size:12px">Text</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">--foreground</div></div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin:0 0 12px">Diagramm-Palette</div>
+    <div style="display:flex;gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-soft)">
+      <div style="flex:1;height:72px;background:var(--chart-1);display:flex;align-items:flex-end;padding:8px;font:600 11px var(--font-mono);color:#fff">01</div>
+      <div style="flex:1;height:72px;background:var(--chart-2);display:flex;align-items:flex-end;padding:8px;font:600 11px var(--font-mono);color:#fff">02</div>
+      <div style="flex:1;height:72px;background:var(--chart-3);display:flex;align-items:flex-end;padding:8px;font:600 11px var(--font-mono);color:#fff">03</div>
+      <div style="flex:1;height:72px;background:var(--chart-4);display:flex;align-items:flex-end;padding:8px;font:600 11px var(--font-mono);color:#3a2a00">04</div>
+      <div style="flex:1;height:72px;background:var(--chart-5);display:flex;align-items:flex-end;padding:8px;font:600 11px var(--font-mono);color:#fff">05</div>
+    </div>
+  </section>
+
+  <!-- ============ TYPOGRAFIE ============ -->
+  <section id="typografie" style="max-width:1180px;margin:0 auto;padding:56px 32px;scroll-margin-top:80px">
+    <div style="font:600 12px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Fundament</div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em;margin:0 0 8px">Typografie</h2>
+    <p style="font-size:15px;color:var(--muted-foreground);max-width:60ch;margin:0 0 28px">Drei Schriften mit klaren Rollen: <strong style="color:var(--foreground)">Bricolage Grotesque</strong> für Überschriften, <strong style="color:var(--foreground)">Schibsted Grotesk</strong> für Fließtext und UI, <strong style="color:var(--foreground)">Geist Mono</strong> für Zahlen und Codes.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:28px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft)">
+        <div style="font:600 11px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:14px">Display</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:46px;line-height:1;letter-spacing:-.03em;margin-bottom:10px">Aa</div>
+        <div style="font-weight:600;font-size:14px">Bricolage Grotesque</div>
+        <div style="font-size:12px;color:var(--muted-foreground)">Überschriften · 700–800 · enges Tracking</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft)">
+        <div style="font:600 11px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:14px">Sans / UI</div>
+        <div style="font-family:var(--font-sans);font-weight:600;font-size:46px;line-height:1;margin-bottom:10px">Aa</div>
+        <div style="font-weight:600;font-size:14px">Schibsted Grotesk</div>
+        <div style="font-size:12px;color:var(--muted-foreground)">Text &amp; Bedienelemente · 400–600</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft)">
+        <div style="font:600 11px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:14px">Mono</div>
+        <div style="font-family:var(--font-mono);font-weight:500;font-size:46px;line-height:1;margin-bottom:10px">123</div>
+        <div style="font-weight:600;font-size:14px">Geist Mono</div>
+        <div style="font-size:12px;color:var(--muted-foreground)">Zahlen, ISIN, Kürzel · tabular</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:10px 26px;box-shadow:var(--shadow-soft)">
+      <div style="display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--border)"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:120px;flex:none">Display · 56px</span><span style="font-family:var(--font-display);font-weight:800;font-size:56px;letter-spacing:-.03em;line-height:1">Portfolio im Blick</span></div>
+      <div style="display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--border)"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:120px;flex:none">H1 · 34px</span><span style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em">Überschrift erster Ebene</span></div>
+      <div style="display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--border)"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:120px;flex:none">H2 · 24px</span><span style="font-family:var(--font-display);font-weight:600;font-size:24px;letter-spacing:-.01em">Abschnittsüberschrift</span></div>
+      <div style="display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--border)"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:120px;flex:none">Body · 15px</span><span style="font-size:15px;line-height:1.6">Fließtext für Beschreibungen und Inhalte. Gut lesbar bei angenehmer Zeilenhöhe.</span></div>
+      <div style="display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--border)"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:120px;flex:none">Small · 13px</span><span style="font-size:13px;color:var(--muted-foreground)">Sekundäre Hinweise, Hilfetexte, Metadaten</span></div>
+      <div style="display:flex;align-items:baseline;gap:18px;padding:16px 0"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:120px;flex:none">Mono · 14px</span><span style="font-family:var(--font-mono);font-size:14px;font-variant-numeric:tabular-nums">€ 1.284.560,00 &nbsp; +3,42 % &nbsp; DE000BAY0017</span></div>
+    </div>
+  </section>
+
+  <!-- ============ FORM & RAUM ============ -->
+  <section id="form" style="max-width:1180px;margin:0 auto;padding:56px 32px;scroll-margin-top:80px">
+    <div style="font:600 12px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Fundament</div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em;margin:0 0 8px">Form &amp; Raum</h2>
+    <p style="font-size:15px;color:var(--muted-foreground);max-width:60ch;margin:0 0 28px">Großzügige Rundungen, ein einziger weicher Schatten und ein gleichmäßiges Abstandsraster geben dem System seine ruhige, freundliche Haltung.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft)">
+        <div style="font-weight:600;font-size:14px;margin-bottom:16px">Eckenradien</div>
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+          <div style="text-align:center"><div style="width:52px;height:52px;background:var(--secondary);border:1px solid var(--border);border-radius:8px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">8</div></div>
+          <div style="text-align:center"><div style="width:52px;height:52px;background:var(--secondary);border:1px solid var(--border);border-radius:10px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">10</div></div>
+          <div style="text-align:center"><div style="width:52px;height:52px;background:var(--secondary);border:1px solid var(--border);border-radius:16px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">16</div></div>
+          <div style="text-align:center"><div style="width:52px;height:52px;background:var(--secondary);border:1px solid var(--border);border-radius:999px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">full</div></div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft)">
+        <div style="font-weight:600;font-size:14px;margin-bottom:16px">Schatten</div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <div style="width:72px;height:52px;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-soft)"></div>
+          <div style="font-size:12px;color:var(--muted-foreground)"><code style="font-family:var(--font-mono)">--shadow-soft</code><br>Ein warmer, tief gestreuter Schatten — überall gleich.</div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft)">
+        <div style="font-weight:600;font-size:14px;margin-bottom:16px">Abstandsraster</div>
+        <div style="display:flex;gap:10px;align-items:flex-end">
+          <div style="text-align:center"><div style="width:4px;height:16px;background:var(--primary);border-radius:2px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">4</div></div>
+          <div style="text-align:center"><div style="width:8px;height:24px;background:var(--primary);border-radius:2px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">8</div></div>
+          <div style="text-align:center"><div style="width:12px;height:32px;background:var(--primary);border-radius:2px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">12</div></div>
+          <div style="text-align:center"><div style="width:16px;height:40px;background:var(--primary);border-radius:2px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">16</div></div>
+          <div style="text-align:center"><div style="width:24px;height:52px;background:var(--primary);border-radius:2px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">24</div></div>
+          <div style="text-align:center"><div style="width:32px;height:64px;background:var(--primary);border-radius:2px"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-foreground);margin-top:6px">32</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BAUSTEINE HEADER ============ -->
+  <section id="bausteine" style="max-width:1180px;margin:0 auto;padding:56px 32px 8px;scroll-margin-top:80px">
+    <div style="font:600 12px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Bausteine</div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em;margin:0 0 8px">Bausteine</h2>
+    <p style="font-size:15px;color:var(--muted-foreground);max-width:60ch;margin:0">Fertige, kompakte Bedienelemente. Datendicht wie das Original — kleine Schrift, ruhige Flächen, klare Zustände.</p>
+  </section>
+
+  <!-- ===== BUTTONS ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+      <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:4px">Buttons &amp; Aktionen</div>
+      <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:20px">Sechs Varianten für jede Wichtigkeit. Standardgröße ist bewusst kompakt.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px">
+        <button style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 13px var(--font-sans);cursor:pointer;transition:all .15s" style-hover="opacity:.85">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Primär
+        </button>
+        <button style="height:32px;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--foreground);font:600 13px var(--font-sans);cursor:pointer;transition:all .15s" style-hover="background:var(--muted)">Outline</button>
+        <button style="height:32px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:var(--secondary);color:var(--secondary-foreground);font:600 13px var(--font-sans);cursor:pointer;transition:all .15s" style-hover="opacity:.85">Sekundär</button>
+        <button style="height:32px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:transparent;color:var(--foreground);font:600 13px var(--font-sans);cursor:pointer;transition:all .15s" style-hover="background:var(--muted)">Ghost</button>
+        <button style="height:32px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:color-mix(in oklab,var(--destructive) 12%,transparent);color:var(--destructive);font:600 13px var(--font-sans);cursor:pointer;transition:all .15s" style-hover="background:color-mix(in oklab,var(--destructive) 20%,transparent)">Löschen</button>
+        <button style="height:32px;padding:0 6px;border:none;background:transparent;color:var(--primary);font:600 13px var(--font-sans);cursor:pointer;text-decoration:underline;text-underline-offset:3px">Link-Button</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button style="height:22px;padding:0 9px;border-radius:7px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 11px var(--font-sans);cursor:pointer">XS</button>
+        <button style="height:26px;padding:0 11px;border-radius:8px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 12px var(--font-sans);cursor:pointer">Small</button>
+        <button style="height:32px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 13px var(--font-sans);cursor:pointer">Default</button>
+        <button style="height:38px;padding:0 18px;border-radius:11px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 14px var(--font-sans);cursor:pointer">Large</button>
+        <button style="width:32px;height:32px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--foreground);display:inline-flex;align-items:center;justify-content:center;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button disabled style="height:32px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 13px var(--font-sans);opacity:.5;cursor:not-allowed">Deaktiviert</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FORMULARE ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+      <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:4px">Formulare</div>
+      <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:22px">Eingabefelder, Auswahl und Schalter — die unteren Schalter sind anklickbar.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">Textfeld</label>
+          <input type="text" value="Bayer AG" style="width:100%;height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--input);background:var(--card);color:var(--foreground);font:400 14px var(--font-sans);outline:none" style-focus="border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in oklab,var(--ring) 25%,transparent)">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">Suche</label>
+          <div style="position:relative">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:12px;top:50%;transform:translateY(-50%)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" placeholder="Wertpapier suchen…" style="width:100%;height:38px;padding:0 12px 0 34px;border-radius:10px;border:1px solid var(--input);background:var(--card);color:var(--foreground);font:400 14px var(--font-sans);outline:none" style-focus="border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in oklab,var(--ring) 25%,transparent)">
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">Auswahl</label>
+          <div style="position:relative">
+            <select style="width:100%;height:38px;padding:0 36px 0 12px;border-radius:10px;border:1px solid var(--input);background:var(--card);color:var(--foreground);font:400 14px var(--font-sans);outline:none;appearance:none;cursor:pointer"><option>Alle Depots</option><option>Comdirect</option><option>Trade Republic</option></select>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div style="grid-column:1/-1">
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">Notiz</label>
+          <textarea rows="3" style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--input);background:var(--card);color:var(--foreground);font:400 14px var(--font-sans);outline:none;resize:vertical" style-focus="border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in oklab,var(--ring) 25%,transparent)">Position um 12 % aufgestockt nach Quartalszahlen.</textarea>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border);margin:22px 0"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px">
+          <span style="width:20px;height:20px;border-radius:6px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center;flex:none"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--primary-foreground)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>
+          Dividenden einrechnen
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--muted-foreground)">
+          <span style="width:20px;height:20px;border-radius:6px;border:1.5px solid var(--border);background:var(--card);flex:none"></span>
+          Nur Gewinner
+        </label>
+        <div style="display:flex;align-items:center;gap:18px">
+          <label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px">
+            <span style="width:20px;height:20px;border-radius:999px;border:5px solid var(--primary);background:var(--card);flex:none"></span>Wert
+          </label>
+          <label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:var(--muted-foreground)">
+            <span style="width:20px;height:20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);flex:none"></span>Anteil
+          </label>
+        </div>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px">
+          <button onClick="{{ toggleA }}" style="{{ trackA }}"><span style="{{ knobA }}"></span></button>
+          Benachrichtigungen
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--muted-foreground)">
+          <button onClick="{{ toggleB }}" style="{{ trackB }}"><span style="{{ knobB }}"></span></button>
+          Beta-Funktionen
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KARTEN & NAVIGATION ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:18px">Karten &amp; Kacheln</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow-soft);margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div style="font-size:13px;color:var(--muted-foreground)">Gesamtwert</div>
+            <span style="display:inline-flex;align-items:center;gap:3px;font:600 12px var(--font-sans);color:var(--primary)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>3,4 %</span>
+          </div>
+          <div style="font-family:var(--font-mono);font-weight:600;font-size:28px;letter-spacing:-.01em">€ 284.560</div>
+          <div style="font-size:12px;color:var(--muted-foreground);margin-top:2px">+ € 9.420 diesen Monat</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <div style="flex:1;background:var(--secondary);border-radius:14px;padding:14px">
+            <div style="font-size:12px;color:var(--secondary-foreground);opacity:.8">Positionen</div>
+            <div style="font-family:var(--font-mono);font-weight:600;font-size:22px;color:var(--secondary-foreground)">24</div>
+          </div>
+          <div style="flex:1;background:var(--accent);border-radius:14px;padding:14px">
+            <div style="font-size:12px;color:var(--accent-foreground);opacity:.8">Rendite p.a.</div>
+            <div style="font-family:var(--font-mono);font-weight:600;font-size:22px;color:var(--accent-foreground)">7,8 %</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:18px">Navigation</div>
+        <div style="font-size:12px;color:var(--muted-foreground);margin-bottom:8px">Pill-Tabs</div>
+        <nav style="display:flex;gap:4px;border-radius:999px;background:var(--muted);padding:5px;margin-bottom:20px">
+          <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:8px 0;font:600 13px var(--font-sans);background:var(--primary);color:var(--primary-foreground);box-shadow:var(--shadow-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Überblick</span>
+          <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:8px 0;font:500 13px var(--font-sans);color:var(--muted-foreground)">Portfolio</span>
+          <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:8px 0;font:500 13px var(--font-sans);color:var(--muted-foreground)">Dividende</span>
+        </nav>
+        <div style="font-size:12px;color:var(--muted-foreground);margin-bottom:8px">Segmentierte Steuerung (anklickbar)</div>
+        <div style="display:flex;gap:3px;border-radius:999px;background:var(--muted);padding:4px;margin-bottom:20px">
+          <button onClick="{{ segMonat.onClick }}" style="{{ segMonat.style }}">Monat</button>
+          <button onClick="{{ segQuartal.onClick }}" style="{{ segQuartal.style }}">Quartal</button>
+          <button onClick="{{ segJahr.onClick }}" style="{{ segJahr.style }}">Jahr</button>
+        </div>
+        <div style="font-size:12px;color:var(--muted-foreground);margin-bottom:8px">Brotkrumen</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted-foreground)">
+          <span>Portfolio</span><span style="opacity:.5">/</span><span>Aktien</span><span style="opacity:.5">/</span><span style="color:var(--foreground);font-weight:600">Bayer AG</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== TABELLEN ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px">
+        <div>
+          <div style="font-family:var(--font-display);font-weight:600;font-size:18px">Tabellen &amp; Listen</div>
+          <div style="font-size:13px;color:var(--muted-foreground)">Monospace-Zahlen mit <code style="font-family:var(--font-mono)">tabular-nums</code> — Spalten fluchten exakt.</div>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:5px;font:600 12px var(--font-sans);color:var(--muted-foreground);background:var(--muted);padding:6px 11px;border-radius:999px">24 Positionen</span>
+      </div>
+      <div style="overflow-x:auto;border:1px solid var(--border);border-radius:14px">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:var(--muted)">
+              <th style="text-align:left;padding:11px 16px;font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)">Wertpapier</th>
+              <th style="text-align:left;padding:11px 16px;font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)">Depot</th>
+              <th style="text-align:right;padding:11px 16px;font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)">Wert</th>
+              <th style="text-align:right;padding:11px 16px;font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)">Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--border)">
+              <td style="padding:13px 16px"><div style="display:flex;align-items:center;gap:11px"><span style="width:30px;height:30px;border-radius:9px;background:var(--secondary);color:var(--secondary-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 12px var(--font-sans)">BAY</span><div><div style="font-weight:600">Bayer AG</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">DE000BAY0017</div></div></div></td>
+              <td style="padding:13px 16px;color:var(--muted-foreground)">Comdirect</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:500">€ 42.180</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--primary)">+1,84 %</td>
+            </tr>
+            <tr style="border-top:1px solid var(--border)">
+              <td style="padding:13px 16px"><div style="display:flex;align-items:center;gap:11px"><span style="width:30px;height:30px;border-radius:9px;background:var(--accent);color:var(--accent-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 12px var(--font-sans)">SAP</span><div><div style="font-weight:600">SAP SE</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">DE0007164600</div></div></div></td>
+              <td style="padding:13px 16px;color:var(--muted-foreground)">Trade Republic</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:500">€ 68.940</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--primary)">+0,62 %</td>
+            </tr>
+            <tr style="border-top:1px solid var(--border)">
+              <td style="padding:13px 16px"><div style="display:flex;align-items:center;gap:11px"><span style="width:30px;height:30px;border-radius:9px;background:var(--muted);color:var(--foreground);display:inline-flex;align-items:center;justify-content:center;font:700 12px var(--font-sans)">SIE</span><div><div style="font-weight:600">Siemens AG</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">DE0007236101</div></div></div></td>
+              <td style="padding:13px 16px;color:var(--muted-foreground)">Comdirect</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:500">€ 51.310</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--destructive)">−0,93 %</td>
+            </tr>
+            <tr style="border-top:1px solid var(--border)">
+              <td style="padding:13px 16px"><div style="display:flex;align-items:center;gap:11px"><span style="width:30px;height:30px;border-radius:9px;background:var(--secondary);color:var(--secondary-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 12px var(--font-sans)">ALV</span><div><div style="font-weight:600">Allianz SE</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)">DE0008404005</div></div></div></td>
+              <td style="padding:13px 16px;color:var(--muted-foreground)">Scalable</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:500">€ 39.770</td>
+              <td style="padding:13px 16px;text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--primary)">+2,11 %</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INHALTSVERZEICHNIS & LINKS ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+      <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:4px">Inhaltsverzeichnis &amp; Links</div>
+      <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:8px">Eigener Link-Token <code style="font-family:var(--font-mono)">--link</code> — tiefes Emerald für sicheren Kontrast auf Creme, hell genug im Dunkelmodus.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted-foreground);background:var(--muted);padding:5px 11px;border-radius:999px"><span style="width:11px;height:11px;border-radius:3px;background:var(--link)"></span>--link</span>
+        <span style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted-foreground);background:var(--muted);padding:5px 11px;border-radius:999px"><span style="width:11px;height:11px;border-radius:3px;background:var(--link-hover)"></span>--link-hover</span>
+        <span style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted-foreground);background:var(--muted);padding:5px 11px;border-radius:999px"><span style="width:11px;height:11px;border-radius:3px;background:var(--link-visited)"></span>--link-visited</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+
+        <!-- Variante 1: Schlichte Liste -->
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--muted-foreground);margin-bottom:12px">Schlichte Liste</div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.01em;margin-bottom:12px">Inhaltsverzeichnis</div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px">
+            <li style="display:flex;align-items:baseline;gap:10px"><span style="width:5px;height:5px;border-radius:999px;background:var(--link);flex:none;transform:translateY(-3px)"></span><a href="#farben" style="color:var(--link);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">SaphBewertungs-Assistent (SaphBewertungBerlin)</a></li>
+            <li style="display:flex;align-items:baseline;gap:10px"><span style="width:5px;height:5px;border-radius:999px;background:var(--link);flex:none;transform:translateY(-3px)"></span><a href="#typografie" style="color:var(--link);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">ChessTrax</a></li>
+            <li style="display:flex;align-items:baseline;gap:10px"><span style="width:5px;height:5px;border-radius:999px;background:var(--link);flex:none;transform:translateY(-3px)"></span><a href="#form" style="color:var(--link);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">Hundefelsen (egor)</a></li>
+            <li style="display:flex;align-items:baseline;gap:10px"><span style="width:5px;height:5px;border-radius:999px;background:var(--link);flex:none;transform:translateY(-3px)"></span><a href="#bausteine" style="color:var(--link);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">Markdown Editor Pro (mark)</a></li>
+            <li style="display:flex;align-items:baseline;gap:10px"><span style="width:5px;height:5px;border-radius:999px;background:var(--link);flex:none;transform:translateY(-3px)"></span><a href="#vorlagen" style="color:var(--link);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">notebooklm feiert mich (video)</a></li>
+          </ul>
+        </div>
+
+        <!-- Variante 2: Nummerierte Karte -->
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--muted-foreground);margin-bottom:12px">Nummeriert &amp; abgesetzt</div>
+          <div style="background:var(--muted);border-radius:16px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:8px;font:600 11px var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:14px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h.01M3 12h.01M3 18h.01M8 6h13M8 12h13M8 18h13"/></svg>Auf dieser Seite</div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <a href="#farben" style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--link);font-weight:600;font-size:14px;transition:all .15s" style-hover="background:var(--card);color:var(--link-hover)"><span style="font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);width:18px;flex:none">01</span>Einrichtung &amp; Tokens</a>
+              <a href="#typografie" style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--link);font-weight:600;font-size:14px;transition:all .15s" style-hover="background:var(--card);color:var(--link-hover)"><span style="font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);width:18px;flex:none">02</span>Typografie-System</a>
+              <a href="#bausteine" style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--link);font-weight:600;font-size:14px;transition:all .15s" style-hover="background:var(--card);color:var(--link-hover)"><span style="font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);width:18px;flex:none">03</span>Bausteine-Katalog</a>
+              <a href="#vorlagen" style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--link);font-weight:600;font-size:14px;transition:all .15s" style-hover="background:var(--card);color:var(--link-hover)"><span style="font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);width:18px;flex:none">04</span>Fertige Vorlagen</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Variante 3: Inline & Zustände -->
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--muted-foreground);margin-bottom:12px">Im Fließtext &amp; Zustände</div>
+          <p style="font-size:14px;line-height:1.7;margin:0 0 18px">Alle Projekte und ihre Quellen sind über den <a href="#vorlagen" style="color:var(--link);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">Link im Footer</a> erreichbar. Mehr dazu in der <a href="#bausteine" style="color:var(--link);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s" style-hover="color:var(--link-hover)">Bausteine-Übersicht</a>.</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:64px;flex:none">Normal</span><a href="#" style="color:var(--link);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px">Projekt öffnen</a></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:64px;flex:none">Hover</span><span style="color:var(--link-hover);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px">Projekt öffnen</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:64px;flex:none">Besucht</span><span style="color:var(--link-visited);font-weight:600;font-size:14px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px">Projekt öffnen</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);width:64px;flex:none">Mit Pfeil</span><a href="#" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-weight:600;font-size:14px;text-decoration:none" style-hover="gap:7px">notebooklm feiert mich<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .15s"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BADGES & DIALOGE ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:18px">Badges, Tags &amp; Status</div>
+        <div style="font-size:12px;color:var(--muted-foreground);margin-bottom:9px">Status</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font:600 12px var(--font-sans);background:color-mix(in oklab,var(--success) 14%,transparent);color:var(--success)"><span style="width:7px;height:7px;border-radius:999px;background:currentColor"></span>Aktiv</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font:600 12px var(--font-sans);background:color-mix(in oklab,var(--warning) 16%,transparent);color:var(--warning)"><span style="width:7px;height:7px;border-radius:999px;background:currentColor"></span>Ausstehend</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font:600 12px var(--font-sans);background:color-mix(in oklab,var(--info) 16%,transparent);color:var(--info)"><span style="width:7px;height:7px;border-radius:999px;background:currentColor"></span>In Prüfung</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font:600 12px var(--font-sans);background:color-mix(in oklab,var(--destructive) 14%,transparent);color:var(--destructive)"><span style="width:7px;height:7px;border-radius:999px;background:currentColor"></span>Verkauft</span>
+        </div>
+        <div style="font-size:12px;color:var(--muted-foreground);margin-bottom:9px">Tags &amp; Zähler</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <span style="padding:5px 11px;border-radius:8px;font:500 12px var(--font-sans);background:var(--muted);color:var(--foreground)">Dividende</span>
+          <span style="padding:5px 11px;border-radius:8px;font:500 12px var(--font-sans);background:var(--muted);color:var(--foreground)">Wachstum</span>
+          <span style="padding:5px 11px;border-radius:8px;font:500 12px var(--font-sans);background:var(--secondary);color:var(--secondary-foreground)">DAX 40</span>
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;font:700 11px var(--font-mono);background:var(--primary);color:var(--primary-foreground)">12</span>
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;font:700 11px var(--font-mono);background:var(--destructive);color:#fff">3</span>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:18px">Hinweise &amp; Tooltips</div>
+        <div style="display:flex;gap:11px;padding:13px 15px;border-radius:14px;background:color-mix(in oklab,var(--success) 10%,transparent);border:1px solid color-mix(in oklab,var(--success) 30%,transparent);margin-bottom:11px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          <div style="font-size:13px"><strong>Import erfolgreich.</strong> 24 Positionen aktualisiert.</div>
+        </div>
+        <div style="display:flex;gap:11px;padding:13px 15px;border-radius:14px;background:color-mix(in oklab,var(--warning) 12%,transparent);border:1px solid color-mix(in oklab,var(--warning) 32%,transparent);margin-bottom:24px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <div style="font-size:13px"><strong>Kurse veraltet.</strong> Letzte Aktualisierung vor 3 Tagen.</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted-foreground);margin-bottom:14px">Tooltip</div>
+        <div style="display:flex;justify-content:center;padding-bottom:8px">
+          <div style="position:relative;display:inline-block">
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:10px;border:1px dashed var(--border);font-size:13px;color:var(--muted-foreground)">Zeiger hier</span>
+            <div style="position:absolute;bottom:calc(100% + 9px);left:50%;transform:translateX(-50%);background:var(--popover);color:var(--popover-foreground);border:1px solid var(--border);box-shadow:var(--shadow-soft);padding:7px 11px;border-radius:9px;font-size:12px;white-space:nowrap">Gesamtrendite seit Kauf<span style="position:absolute;top:100%;left:50%;transform:translateX(-50%) rotate(45deg);width:8px;height:8px;background:var(--popover);border-right:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:-4px"></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== DIALOG (LIVE) ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-family:var(--font-display);font-weight:600;font-size:18px">Dialoge</div>
+          <div style="font-size:13px;color:var(--muted-foreground)">Modaler Dialog mit weichem Overlay — klick zum Öffnen.</div>
+        </div>
+        <button onClick="{{ openModal }}" style="height:38px;padding:0 18px;border-radius:11px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 14px var(--font-sans);cursor:pointer">Dialog öffnen</button>
+      </div>
+    </div>
+  </section>
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:100;background:oklch(0.2 0.02 60 / 0.45);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;animation:om-overlay .18s ease">
+      <div style="width:100%;max-width:420px;background:var(--popover);color:var(--popover-foreground);border:1px solid var(--border);border-radius:20px;box-shadow:0 30px 70px -20px rgba(0,0,0,.4);overflow:hidden;animation:om-sheet .22s cubic-bezier(.2,.8,.2,1)">
+        <div style="padding:22px 24px 0">
+          <div style="width:42px;height:42px;border-radius:12px;background:color-mix(in oklab,var(--destructive) 12%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--destructive)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:19px;margin-bottom:6px">Position verkaufen?</div>
+          <div style="font-size:14px;color:var(--muted-foreground);line-height:1.55">Bayer AG (42.180 €) wird vollständig aus dem Depot „Comdirect" entfernt. Diese Aktion kann nicht rückgängig gemacht werden.</div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;padding:22px 24px">
+          <button onClick="{{ closeModal }}" style="height:36px;padding:0 16px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--foreground);font:600 13px var(--font-sans);cursor:pointer">Abbrechen</button>
+          <button onClick="{{ closeModal }}" style="height:36px;padding:0 16px;border-radius:10px;border:1px solid transparent;background:var(--destructive);color:#fff;font:600 13px var(--font-sans);cursor:pointer">Verkaufen</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== DIAGRAMME ===== -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px 8px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--shadow-soft)">
+        <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:4px">Aufteilung</div>
+        <div style="display:flex;align-items:center;gap:18px">
+          <svg width="120" height="120" viewBox="0 0 120 120" style="flex:none">
+            <circle cx="60" cy="60" r="42" fill="none" stroke="var(--muted)" stroke-width="16"/>
+            <circle cx="60" cy="60" r="42" fill="none" stroke="var(--chart-1)" stroke-width="16" stroke-dasharray="105.6 263.9" stroke-dashoffset="0" transform="rotate(-90 60 60)" stroke-linecap="butt"/>
+            <circle cx="60" cy="60" r="42" fill="none" stroke="var(--chart-2)" stroke-width="16" stroke-dasharray="65.9 263.9" stroke-dashoffset="-105.6" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="42" fill="none" stroke="var(--chart-3)" stroke-width="16" stroke-dasharray="52.8 263.9" stroke-dashoffset="-171.5" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="42" fill="none" stroke="var(--chart-4)" stroke-width="16" stroke-dasharray="39.6 263.9" stroke-dashoffset="-224.3" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--chart-1)"></span>Aktien <span style="font-family:var(--font-mono);color:var(--muted-foreground);margin-left:auto">40 %</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--chart-2)"></span>ETFs <span style="font-family:var(--font-mono);color:var(--muted-foreground);margin-left:auto">25 %</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--chart-3)"></span>Anleihen <span style="font-family:var(--font-mono);color:var(--muted-foreground);margin-left:auto">20 %</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--chart-4)"></span>Cash <span style="font-family:var(--font-mono);color:var(--muted-foreground);margin-left:auto">15 %</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--shadow-soft)">
+        <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:2px">Dividenden je Monat</div>
+        <div style="font-family:var(--font-mono);font-weight:600;font-size:22px;margin-bottom:16px">€ 1.840</div>
+        <div style="display:flex;align-items:flex-end;gap:10px;height:90px">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;height:38%;background:var(--secondary);border-radius:6px 6px 3px 3px"></div><span style="font-size:10px;color:var(--muted-foreground)">J</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;height:55%;background:var(--secondary);border-radius:6px 6px 3px 3px"></div><span style="font-size:10px;color:var(--muted-foreground)">F</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;height:48%;background:var(--secondary);border-radius:6px 6px 3px 3px"></div><span style="font-size:10px;color:var(--muted-foreground)">M</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;height:78%;background:var(--primary);border-radius:6px 6px 3px 3px"></div><span style="font-size:10px;color:var(--foreground);font-weight:600">A</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;height:62%;background:var(--secondary);border-radius:6px 6px 3px 3px"></div><span style="font-size:10px;color:var(--muted-foreground)">M</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;height:90%;background:var(--secondary);border-radius:6px 6px 3px 3px"></div><span style="font-size:10px;color:var(--muted-foreground)">J</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--shadow-soft)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px"><div style="font-size:13px;color:var(--muted-foreground)">Wertverlauf</div><span style="font:600 12px var(--font-sans);color:var(--primary)">+12,4 %</span></div>
+        <div style="font-family:var(--font-mono);font-weight:600;font-size:22px;margin-bottom:14px">€ 284.560</div>
+        <svg width="100%" height="84" viewBox="0 0 240 84" preserveAspectRatio="none">
+          <defs><linearGradient id="spark" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--primary)" stop-opacity="0.28"/><stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 64 L34 58 L68 62 L102 44 L136 50 L170 30 L204 36 L240 14 L240 84 L0 84 Z" fill="url(#spark)"/>
+          <path d="M0 64 L34 58 L68 62 L102 44 L136 50 L170 30 L204 36 L240 14" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="240" cy="14" r="3.5" fill="var(--primary)"/>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SPINNER ============ -->
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:4px">Spinner &amp; Ladezustand</div>
+        <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:24px">Rotierender Ring im Primärgrün über schwacher, gleichfarbiger Spur.</div>
+
+        <div style="display:flex;align-items:flex-end;gap:40px;margin-bottom:24px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <div style="width:16px;height:16px;border-radius:9999px;border:2px solid color-mix(in oklab,var(--primary) 20%,transparent);border-top-color:var(--primary);animation:ds-spin .7s linear infinite;flex:none"></div>
+            <div style="font-size:11px;color:var(--muted-foreground)">sm · 16</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <div style="width:24px;height:24px;border-radius:9999px;border:2.5px solid color-mix(in oklab,var(--primary) 20%,transparent);border-top-color:var(--primary);animation:ds-spin .7s linear infinite;flex:none"></div>
+            <div style="font-size:11px;color:var(--muted-foreground)">md · 24</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;border-radius:9999px;border:3px solid color-mix(in oklab,var(--primary) 20%,transparent);border-top-color:var(--primary);animation:ds-spin .7s linear infinite;flex:none"></div>
+            <div style="font-size:11px;color:var(--muted-foreground)">lg · 36</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:13px 15px;border-radius:14px;background:color-mix(in oklab,var(--primary) 8%,transparent);border:1px solid color-mix(in oklab,var(--primary) 22%,transparent)">
+          <div style="width:16px;height:16px;border-radius:9999px;border:2px solid color-mix(in oklab,var(--primary) 20%,transparent);border-top-color:var(--primary);animation:ds-spin .7s linear infinite;flex:none"></div>
+          <div style="font-size:13px;color:var(--muted-foreground)">Wird geladen …</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:18px">Einsatz &amp; Verhalten</div>
+        <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.95;color:var(--foreground)">
+          <li>Größen <strong>sm 16 · md 24 · lg 36</strong> px, Ringstärke skaliert mit.</li>
+          <li>Farbe folgt <code style="font-family:var(--font-mono);font-size:12px;background:color-mix(in oklab,var(--primary) 8%,transparent);padding:1px 5px;border-radius:6px">--primary</code>; Spur via <code style="font-family:var(--font-mono);font-size:12px;background:color-mix(in oklab,var(--primary) 8%,transparent);padding:1px 5px;border-radius:6px">color-mix</code>.</li>
+          <li>Tempo <strong>0,7 s</strong>, linear, endlos.</li>
+          <li>Respektiert <code style="font-family:var(--font-mono);font-size:12px;background:color-mix(in oklab,var(--primary) 8%,transparent);padding:1px 5px;border-radius:6px">prefers-reduced-motion</code> – dreht dann langsamer statt zu flackern.</li>
+          <li>Für Lade- und Denk-Zustände; ersetzt die Text-Sprechblase.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ EDITOR-BAUSTEINE ============ -->
+  <section style="max-width:1180px;margin:0 auto;padding:56px 32px 8px;scroll-margin-top:80px">
+    <div style="font:600 12px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Bausteine · Editor</div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em;margin:0 0 8px">Editor &amp; Code</h2>
+    <p style="font-size:15px;color:var(--muted-foreground);max-width:64ch;margin:0">Drei neue Bestandteile speziell für Text-Werkzeuge wie den Markdown-Editor: eine Formatierungs-Toolbar, eine theme-fähige Syntax-Highlighting-Palette und der „Prose"-Stil für gerenderten Inhalt.</p>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:20px 32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px">
+
+      <!-- Toolbar + Palette -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:4px">Formatierungs-Toolbar</div>
+        <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:16px">Icon-Buttons im bekannten Stil — Fett, Kursiv, Code, Überschriften, Listen, Zitat, Link, Bild, Tabelle.</div>
+        <div style="display:flex;align-items:center;gap:2px;padding:7px 8px;border:1px solid var(--border);border-radius:12px;background:var(--muted);flex-wrap:wrap">
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--foreground)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6zM6 12h9a4 4 0 0 1 0 8H6z"/></svg></span>
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--foreground)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4h-9M14 20H5M15 4 9 20"/></svg></span>
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--foreground)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+          <span style="width:1px;height:20px;background:var(--border);margin:0 5px"></span>
+          <span style="height:32px;padding:0 8px;border-radius:8px;display:inline-flex;align-items:center;color:var(--foreground);font:700 13px var(--font-display)">H1</span>
+          <span style="height:32px;padding:0 8px;border-radius:8px;display:inline-flex;align-items:center;color:var(--foreground);font:700 13px var(--font-display)">H2</span>
+          <span style="width:1px;height:20px;background:var(--border);margin:0 5px"></span>
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--foreground)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--foreground)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17h3l2-4V7H5v6h4M14 17h3l2-4V7h-6v6h4"/></svg></span>
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:var(--card);color:var(--primary);box-shadow:var(--shadow-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></span>
+          <span style="width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--foreground)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></span>
+        </div>
+
+        <div style="font-family:var(--font-display);font-weight:600;font-size:16px;margin:22px 0 12px">Syntax-Palette</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 12px var(--font-mono);color:var(--muted-foreground);background:var(--muted);padding:5px 10px;border-radius:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--syn-keyword)"></span>keyword</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 12px var(--font-mono);color:var(--muted-foreground);background:var(--muted);padding:5px 10px;border-radius:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--syn-string)"></span>string</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 12px var(--font-mono);color:var(--muted-foreground);background:var(--muted);padding:5px 10px;border-radius:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--syn-number)"></span>number</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 12px var(--font-mono);color:var(--muted-foreground);background:var(--muted);padding:5px 10px;border-radius:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--syn-function)"></span>function</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 12px var(--font-mono);color:var(--muted-foreground);background:var(--muted);padding:5px 10px;border-radius:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--syn-comment)"></span>comment</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 12px var(--font-mono);color:var(--muted-foreground);background:var(--muted);padding:5px 10px;border-radius:8px"><span style="width:11px;height:11px;border-radius:3px;background:var(--syn-tag)"></span>tag</span>
+        </div>
+        <pre style="margin:14px 0 0;background:var(--code-bg);border:1px solid var(--code-border);border-radius:12px;padding:14px 16px;overflow:auto;font-family:var(--font-mono);font-size:13px;line-height:1.6"><span style="color:var(--syn-keyword)">function</span> <span style="color:var(--syn-function)">gruss</span>(<span style="color:var(--syn-attr)">name</span>) {
+  <span style="color:var(--syn-keyword)">const</span> text = <span style="color:var(--syn-string)">`Hallo, ${name}!`</span>; <span style="color:var(--syn-comment)">// Gruß</span>
+  <span style="color:var(--syn-keyword)">return</span> text.<span style="color:var(--syn-function)">toUpperCase</span>();
+}</pre>
+      </div>
+
+      <!-- Prose -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow-soft)">
+        <div style="font-family:var(--font-display);font-weight:600;font-size:18px;margin-bottom:4px">„Prose"-Stil</div>
+        <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:16px">Typografie für gerenderten Markdown-Inhalt — Überschriften, Text, Listen, Zitat, Inline-Code, Tabelle, Trennlinie.</div>
+        <div style="border:1px solid var(--border);border-radius:14px;padding:20px 22px">
+          <div style="font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.02em;margin:0 0 6px">Überschrift</div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:17px;padding-bottom:6px;border-bottom:1px solid var(--border);margin:14px 0 10px">Abschnitt</div>
+          <p style="font-size:14px;line-height:1.7;margin:0 0 12px">Fließtext mit einem <a href="#" style="color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:3px">Link</a>, <strong>fett</strong> und <code style="font-family:var(--font-mono);font-size:.88em;background:var(--code-inline-bg);padding:.15em .4em;border-radius:6px">inline-code</code>.</p>
+          <ul style="margin:0 0 12px;padding-left:1.3em;font-size:14px;line-height:1.7"><li>Erster Punkt</li><li>Zweiter Punkt</li></ul>
+          <blockquote style="margin:0 0 12px;padding:.4em 1.1em;border-left:3px solid var(--primary);background:color-mix(in oklab,var(--primary) 6%,transparent);border-radius:0 10px 10px 0;color:var(--muted-foreground);font-size:14px">Ein hervorgehobenes Zitat.</blockquote>
+          <hr style="border:none;border-top:1px solid var(--border);margin:12px 0">
+          <div style="font-size:12px;color:var(--muted-foreground)">…identisch mit der Live-Vorschau des Editors.</div>
+        </div>
+        <a href="Markdown Editor Lite.dc.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:18px;height:38px;padding:0 16px;border-radius:11px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);font:600 14px var(--font-sans);text-decoration:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="m9 15 2 2 4-4"/></svg>
+          Markdown-Editor (Vorlage) öffnen
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ VORLAGEN ============ -->
+  <section id="vorlagen" style="max-width:1180px;margin:0 auto;padding:56px 32px 8px;scroll-margin-top:80px">
+    <div style="font:600 12px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Vorlagen</div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.02em;margin:0 0 8px">Fertige Vorlagen</h2>
+    <p style="font-size:15px;color:var(--muted-foreground);max-width:60ch;margin:0">Drei vollständige Bildschirme aus den Bausteinen zusammengesetzt — als Startpunkt für neue Projekte.</p>
+  </section>
+
+  <!-- LOGIN -->
+  <section data-screen-label="Vorlage Login" style="max-width:1180px;margin:0 auto;padding:16px 32px">
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin-bottom:10px">Anmeldung</div>
+    <div style="border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft);background:var(--card)">
+      <div style="display:flex;align-items:center;gap:7px;padding:11px 15px;background:var(--muted);border-bottom:1px solid var(--border)">
+        <span style="width:11px;height:11px;border-radius:999px;background:#ff5f57"></span><span style="width:11px;height:11px;border-radius:999px;background:#febc2e"></span><span style="width:11px;height:11px;border-radius:999px;background:#28c840"></span>
+        <span style="margin-left:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);background:var(--card);padding:4px 12px;border-radius:7px;border:1px solid var(--border)">depot.app/login</span>
+      </div>
+      <div style="background:var(--background);background-image:var(--canvas-gradient);padding:48px 24px;display:flex;justify-content:center">
+        <div style="width:100%;max-width:360px;background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow-soft);padding:30px">
+          <div style="width:44px;height:44px;border-radius:13px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:18px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-foreground)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 4 3 5-7"/></svg></div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.02em;margin-bottom:4px">Willkommen zurück</div>
+          <div style="font-size:13px;color:var(--muted-foreground);margin-bottom:22px">Melde dich bei deinem Depot-Portal an.</div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">E-Mail</label>
+          <input type="text" value="anna@beispiel.de" style="width:100%;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--input);background:var(--card);color:var(--foreground);font:400 14px var(--font-sans);outline:none;margin-bottom:14px">
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">Passwort</label>
+          <input type="password" value="123456789" style="width:100%;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--input);background:var(--card);color:var(--foreground);font:400 14px var(--font-sans);outline:none;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted-foreground);cursor:pointer"><span style="width:17px;height:17px;border-radius:5px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--primary-foreground)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Angemeldet bleiben</label>
+            <a href="#" style="font-size:12px;color:var(--primary);text-decoration:none;font-weight:600">Vergessen?</a>
+          </div>
+          <button style="width:100%;height:42px;border-radius:11px;border:none;background:var(--primary);color:var(--primary-foreground);font:600 14px var(--font-sans);cursor:pointer">Anmelden</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section data-screen-label="Vorlage Dashboard" style="max-width:1180px;margin:0 auto;padding:16px 32px">
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin-bottom:10px">Dashboard / Überblick</div>
+    <div style="border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft);background:var(--card)">
+      <div style="display:flex;align-items:center;gap:7px;padding:11px 15px;background:var(--muted);border-bottom:1px solid var(--border)">
+        <span style="width:11px;height:11px;border-radius:999px;background:#ff5f57"></span><span style="width:11px;height:11px;border-radius:999px;background:#febc2e"></span><span style="width:11px;height:11px;border-radius:999px;background:#28c840"></span>
+        <span style="margin-left:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);background:var(--card);padding:4px 12px;border-radius:7px;border:1px solid var(--border)">depot.app/ueberblick</span>
+      </div>
+      <div style="background:var(--background);background-image:var(--canvas-gradient);padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+          <nav style="display:flex;gap:4px;border-radius:999px;background:var(--card);padding:5px;border:1px solid var(--border);box-shadow:var(--shadow-soft)">
+            <span style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:7px 14px;font:600 13px var(--font-sans);background:var(--primary);color:var(--primary-foreground)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Überblick</span>
+            <span style="border-radius:999px;padding:7px 14px;font:500 13px var(--font-sans);color:var(--muted-foreground)">Portfolio</span>
+            <span style="border-radius:999px;padding:7px 14px;font:500 13px var(--font-sans);color:var(--muted-foreground)">Dividende</span>
+            <span style="border-radius:999px;padding:7px 14px;font:500 13px var(--font-sans);color:var(--muted-foreground)">Kommentare</span>
+          </nav>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:5px 6px 5px 14px;box-shadow:var(--shadow-soft)">
+            <span style="font-size:13px;color:var(--muted-foreground)">Besitzer</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;background:var(--secondary);color:var(--secondary-foreground);border-radius:999px;padding:5px 11px;font:600 12px var(--font-sans)">Anna<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow-soft)"><div style="font-size:12px;color:var(--muted-foreground);margin-bottom:6px">Gesamtwert</div><div style="font-family:var(--font-mono);font-weight:600;font-size:20px">€ 284.560</div><div style="font-size:12px;color:var(--primary);font-weight:600;margin-top:3px">+3,42 %</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow-soft)"><div style="font-size:12px;color:var(--muted-foreground);margin-bottom:6px">Gewinn/Verlust</div><div style="font-family:var(--font-mono);font-weight:600;font-size:20px">+ € 31.200</div><div style="font-size:12px;color:var(--primary);font-weight:600;margin-top:3px">+12,3 %</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow-soft)"><div style="font-size:12px;color:var(--muted-foreground);margin-bottom:6px">Dividende '26</div><div style="font-family:var(--font-mono);font-weight:600;font-size:20px">€ 8.940</div><div style="font-size:12px;color:var(--muted-foreground);margin-top:3px">Ø € 745/Mon.</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow-soft)"><div style="font-size:12px;color:var(--muted-foreground);margin-bottom:6px">Positionen</div><div style="font-family:var(--font-mono);font-weight:600;font-size:20px">24</div><div style="font-size:12px;color:var(--muted-foreground);margin-top:3px">in 3 Depots</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:14px">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow-soft)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-family:var(--font-display);font-weight:600;font-size:15px">Wertverlauf</div><div style="display:flex;gap:3px;border-radius:999px;background:var(--muted);padding:3px"><span style="padding:4px 12px;border-radius:999px;font:600 11px var(--font-sans);background:var(--card);box-shadow:var(--shadow-soft)">1J</span><span style="padding:4px 12px;border-radius:999px;font:500 11px var(--font-sans);color:var(--muted-foreground)">3J</span><span style="padding:4px 12px;border-radius:999px;font:500 11px var(--font-sans);color:var(--muted-foreground)">Max</span></div></div>
+            <svg width="100%" height="120" viewBox="0 0 400 120" preserveAspectRatio="none">
+              <defs><linearGradient id="dash" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--primary)" stop-opacity="0.25"/><stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0 96 L57 88 L114 94 L171 66 L228 74 L285 44 L342 52 L400 20 L400 120 L0 120 Z" fill="url(#dash)"/>
+              <path d="M0 96 L57 88 L114 94 L171 66 L228 74 L285 44 L342 52 L400 20" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow-soft)">
+            <div style="font-family:var(--font-display);font-weight:600;font-size:15px;margin-bottom:14px">Top-Positionen</div>
+            <div style="display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:8px;background:var(--secondary);color:var(--secondary-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 10px var(--font-sans)">SAP</span><span style="font-size:13px;font-weight:600">SAP SE</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:13px">€ 68.940</span></div>
+              <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:8px;background:var(--muted);color:var(--foreground);display:inline-flex;align-items:center;justify-content:center;font:700 10px var(--font-sans)">SIE</span><span style="font-size:13px;font-weight:600">Siemens</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:13px">€ 51.310</span></div>
+              <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:8px;background:var(--secondary);color:var(--secondary-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 10px var(--font-sans)">BAY</span><span style="font-size:13px;font-weight:600">Bayer</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:13px">€ 42.180</span></div>
+              <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:8px;background:var(--secondary);color:var(--secondary-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 10px var(--font-sans)">ALV</span><span style="font-size:13px;font-weight:600">Allianz</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:13px">€ 39.770</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL -->
+  <section data-screen-label="Vorlage Detailseite" style="max-width:1180px;margin:0 auto;padding:16px 32px 8px">
+    <div style="font-size:13px;font-weight:600;color:var(--muted-foreground);margin-bottom:10px">Detailseite</div>
+    <div style="border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft);background:var(--card)">
+      <div style="display:flex;align-items:center;gap:7px;padding:11px 15px;background:var(--muted);border-bottom:1px solid var(--border)">
+        <span style="width:11px;height:11px;border-radius:999px;background:#ff5f57"></span><span style="width:11px;height:11px;border-radius:999px;background:#febc2e"></span><span style="width:11px;height:11px;border-radius:999px;background:#28c840"></span>
+        <span style="margin-left:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground);background:var(--card);padding:4px 12px;border-radius:7px;border:1px solid var(--border)">depot.app/portfolio/bayer</span>
+      </div>
+      <div style="background:var(--background);background-image:var(--canvas-gradient);padding:24px">
+        <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted-foreground);margin-bottom:16px"><span>Portfolio</span><span style="opacity:.5">/</span><span>Aktien</span><span style="opacity:.5">/</span><span style="color:var(--foreground);font-weight:600">Bayer AG</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:var(--shadow-soft);margin-bottom:14px">
+          <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+            <span style="width:52px;height:52px;border-radius:14px;background:var(--secondary);color:var(--secondary-foreground);display:inline-flex;align-items:center;justify-content:center;font:700 17px var(--font-sans)">BAY</span>
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-family:var(--font-display);font-weight:700;font-size:24px;letter-spacing:-.02em">Bayer AG</span><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font:600 11px var(--font-sans);background:color-mix(in oklab,var(--success) 14%,transparent);color:var(--success)"><span style="width:6px;height:6px;border-radius:999px;background:currentColor"></span>Aktiv</span></div>
+              <div style="font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);margin-top:3px">DE000BAY0017 · Comdirect</div>
+            </div>
+            <div style="margin-left:auto;text-align:right">
+              <div style="font-family:var(--font-mono);font-weight:600;font-size:26px">€ 42.180</div>
+              <div style="display:inline-flex;align-items:center;gap:4px;font:600 13px var(--font-sans);color:var(--primary)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>+1,84 % heute</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:3px;border-radius:999px;background:var(--muted);padding:4px;margin-top:20px;max-width:340px">
+            <span style="flex:1;text-align:center;padding:7px 0;border-radius:999px;font:600 13px var(--font-sans);background:var(--card);box-shadow:var(--shadow-soft)">Übersicht</span>
+            <span style="flex:1;text-align:center;padding:7px 0;border-radius:999px;font:500 13px var(--font-sans);color:var(--muted-foreground)">Dividende</span>
+            <span style="flex:1;text-align:center;padding:7px 0;border-radius:999px;font:500 13px var(--font-sans);color:var(--muted-foreground)">Notizen</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow-soft)">
+            <div style="font-family:var(--font-display);font-weight:600;font-size:15px;margin-bottom:14px">Kursverlauf</div>
+            <svg width="100%" height="130" viewBox="0 0 400 130" preserveAspectRatio="none">
+              <defs><linearGradient id="det" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--primary)" stop-opacity="0.25"/><stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0 70 L50 80 L100 60 L150 74 L200 48 L250 56 L300 34 L350 44 L400 22 L400 130 L0 130 Z" fill="url(#det)"/>
+              <path d="M0 70 L50 80 L100 60 L150 74 L200 48 L250 56 L300 34 L350 44 L400 22" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow-soft)">
+            <div style="font-family:var(--font-display);font-weight:600;font-size:15px;margin-bottom:14px">Kennzahlen</div>
+            <div style="display:flex;flex-direction:column;gap:0">
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--muted-foreground)">Anteile</span><span style="font-family:var(--font-mono);font-weight:500">820</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--muted-foreground)">Einstand</span><span style="font-family:var(--font-mono);font-weight:500">€ 38,40</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--muted-foreground)">Aktuell</span><span style="font-family:var(--font-mono);font-weight:500">€ 51,44</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--muted-foreground)">Div.-Rendite</span><span style="font-family:var(--font-mono);font-weight:500">3,2 %</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:13px"><span style="color:var(--muted-foreground)">Gewinn</span><span style="font-family:var(--font-mono);font-weight:600;color:var(--primary)">+ € 10.690</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="max-width:1180px;margin:0 auto;padding:48px 32px 64px;margin-top:32px;border-top:1px solid var(--border)">
+    <div style="display:flex;align-items:center;gap:11px;margin-bottom:10px">
+      <div style="width:30px;height:30px;border-radius:9px;background:var(--primary);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-foreground)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 4 3 5-7"/></svg></div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:15px">Depot Design System</div>
+    </div>
+    <p style="font-size:13px;color:var(--muted-foreground);max-width:60ch;margin:0">Alle Bausteine nutzen dieselben Farb-, Schrift- und Form-Tokens. Für ein neues Projekt: Tokens kopieren, Theme über <code style="font-family:var(--font-mono)">data-theme="dark"</code> umschalten, Bausteine zusammensetzen.</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { theme:'light', seg:'Monat', switchA:true, switchB:false, modalOpen:false };
+  renderVals(){
+    const isDark = this.state.theme === 'dark';
+    const segItem = (name)=>({
+      onClick: ()=>this.setState({seg:name}),
+      style: this.state.seg===name
+        ? {flex:'1',padding:'7px 0',borderRadius:'999px',border:'none',cursor:'pointer',font:'600 13px var(--font-sans)',background:'var(--card)',color:'var(--foreground)',boxShadow:'var(--shadow-soft)'}
+        : {flex:'1',padding:'7px 0',borderRadius:'999px',border:'none',cursor:'pointer',font:'500 13px var(--font-sans)',background:'transparent',color:'var(--muted-foreground)'}
+    });
+    const track = (on)=>({width:'42px',height:'24px',borderRadius:'999px',background:on?'var(--primary)':'var(--border)',position:'relative',transition:'background .2s',cursor:'pointer',border:'none',padding:0,flex:'none'});
+    const knob = (on)=>({position:'absolute',top:'3px',left:on?'21px':'3px',width:'18px',height:'18px',borderRadius:'999px',background:'#fff',transition:'left .2s ease',boxShadow:'0 1px 3px rgba(0,0,0,.25)'});
+    return {
+      themeAttr: this.state.theme,
+      isDark,
+      themeLabel: isDark ? 'Hell' : 'Dunkel',
+      toggleTheme: ()=>this.setState(s=>({theme: s.theme==='dark'?'light':'dark'})),
+      segMonat: segItem('Monat'), segQuartal: segItem('Quartal'), segJahr: segItem('Jahr'),
+      switchA: this.state.switchA, switchB: this.state.switchB,
+      trackA: track(this.state.switchA), knobA: knob(this.state.switchA),
+      trackB: track(this.state.switchB), knobB: knob(this.state.switchB),
+      toggleA: ()=>this.setState(s=>({switchA:!s.switchA})),
+      toggleB: ()=>this.setState(s=>({switchB:!s.switchB})),
+      modalOpen: this.state.modalOpen,
+      openModal: ()=>this.setState({modalOpen:true}),
+      closeModal: ()=>this.setState({modalOpen:false}),
+    };
+  }
+}
+</script>
+</body>
+</html>
