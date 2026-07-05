@@ -139,6 +139,28 @@ const fileMenu = $('#file-menu');
 const fileInput = $<HTMLInputElement>('#file-input');
 const savedEl = $('#saved');
 const savedLabel = $('#saved-label');
+const btnSidebar = $('#btn-sidebar');
+
+// ---------- Mobile: eine Ansicht in voller Breite ----------
+
+type MobileView = 'sidebar' | 'editor' | 'preview';
+const mqMobile = window.matchMedia('(max-width: 720px)');
+const MOBILE_CYCLE: Record<MobileView, MobileView> = { sidebar: 'editor', editor: 'preview', preview: 'sidebar' };
+const MOBILE_LABELS: Record<MobileView, string> = { sidebar: 'Dokumente', editor: 'Editor', preview: 'Vorschau' };
+let mobileView: MobileView = 'editor';
+
+function applyMobileBtn() {
+  if (mqMobile.matches) {
+    const next = MOBILE_CYCLE[mobileView];
+    btnSidebar.dataset.next = next;
+    btnSidebar.title = `Ansicht wechseln: ${MOBILE_LABELS[next]}`;
+    btnSidebar.setAttribute('aria-label', `Ansicht wechseln zu ${MOBILE_LABELS[next]}`);
+  } else {
+    delete btnSidebar.dataset.next;
+    btnSidebar.title = 'Seitenleiste ein-/ausblenden';
+    btnSidebar.setAttribute('aria-label', 'Seitenleiste');
+  }
+}
 
 // ---------- Rendering ----------
 
@@ -287,18 +309,25 @@ function applyTheme() {
 }
 
 function applyView() {
-  const showEditor = state.view !== 'preview';
-  const showPreview = state.view !== 'editor';
-  editorPane.hidden = !showEditor;
-  previewPane.hidden = !showPreview;
-  editorPane.classList.toggle('with-preview', showEditor && showPreview);
+  if (mqMobile.matches) {
+    editorPane.hidden = mobileView !== 'editor';
+    previewPane.hidden = mobileView !== 'preview';
+    editorPane.classList.remove('with-preview');
+  } else {
+    const showEditor = state.view !== 'preview';
+    const showPreview = state.view !== 'editor';
+    editorPane.hidden = !showEditor;
+    previewPane.hidden = !showPreview;
+    editorPane.classList.toggle('with-preview', showEditor && showPreview);
+  }
   for (const btn of document.querySelectorAll<HTMLElement>('.seg-btn[data-view]')) {
     btn.classList.toggle('active', btn.dataset.view === state.view);
   }
 }
 
 function applySidebar() {
-  sidebarEl.hidden = !state.sidebarOpen;
+  sidebarEl.hidden = mqMobile.matches ? mobileView !== 'sidebar' : !state.sidebarOpen;
+  applyMobileBtn();
 }
 
 function applyFontSize() {
@@ -326,13 +355,18 @@ function renderAll() {
 // ---------- Dokument-Operationen ----------
 
 function selectDoc(id: string) {
-  if (id === state.activeId) return;
-  state.activeId = id;
-  persist();
+  // Auf dem Smartphone führt die Auswahl aus der Dokumentliste direkt in den Editor
+  if (mqMobile.matches && mobileView === 'sidebar') mobileView = 'editor';
+  else if (id === state.activeId) return;
+  if (id !== state.activeId) {
+    state.activeId = id;
+    persist();
+  }
   renderAll();
 }
 
 function newDoc(content = '# Unbenannt\n\n', name?: string) {
+  if (mqMobile.matches) mobileView = 'editor';
   const doc: Doc = { id: uid(), content, name };
   state.docs.push(doc);
   state.activeId = doc.id;
@@ -552,9 +586,19 @@ for (const btn of document.querySelectorAll<HTMLElement>('[data-fmt]')) {
   btn.addEventListener('click', () => formatActions[btn.dataset.fmt!]?.());
 }
 
-$('#btn-sidebar').addEventListener('click', () => {
+btnSidebar.addEventListener('click', () => {
+  if (mqMobile.matches) {
+    mobileView = MOBILE_CYCLE[mobileView];
+    applyView();
+    applySidebar();
+    return;
+  }
   state.sidebarOpen = !state.sidebarOpen;
   persist();
+  applySidebar();
+});
+mqMobile.addEventListener('change', () => {
+  applyView();
   applySidebar();
 });
 $('#btn-theme').addEventListener('click', () => {
