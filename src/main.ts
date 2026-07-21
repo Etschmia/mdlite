@@ -59,10 +59,18 @@ interface PersistedState {
   sidebarOpen: boolean;
   showLineNumbers: boolean;
   fontSize: number;
+  sidebarWidth: number;
+  editorFraction: number;
 }
 
 const LS_KEY = 'mdlite.v1';
 const FM_DEFAULT_KEYS = ['title', 'date', 'description', 'tags', 'author'];
+
+// Grenzen für die verschiebbaren Teiler
+const SIDEBAR_MIN = 180;
+const SIDEBAR_MAX = 460;
+const SPLIT_MIN = 0.2; // Editor mind. 20 % der Editor+Vorschau-Fläche
+const SPLIT_MAX = 0.8;
 
 const WELCOME = `# Willkommen bei mdlite 👋
 
@@ -195,6 +203,12 @@ function loadState(): PersistedState {
     sidebarOpen: typeof saved?.sidebarOpen === 'boolean' ? saved.sidebarOpen : true,
     showLineNumbers: typeof saved?.showLineNumbers === 'boolean' ? saved.showLineNumbers : true,
     fontSize: typeof saved?.fontSize === 'number' ? Math.min(22, Math.max(12, saved.fontSize)) : 15,
+    sidebarWidth:
+      typeof saved?.sidebarWidth === 'number' ? Math.min(SIDEBAR_MAX, Math.max(SIDEBAR_MIN, saved.sidebarWidth)) : 244,
+    editorFraction:
+      typeof saved?.editorFraction === 'number'
+        ? Math.min(SPLIT_MAX, Math.max(SPLIT_MIN, saved.editorFraction))
+        : 0.5,
   };
 }
 
@@ -226,6 +240,9 @@ const docListEl = $('#doc-list');
 const sidebarEl = $('#sidebar');
 const editorPane = $('#editor-pane');
 const previewPane = $('#preview-pane');
+const bodyEl = $<HTMLElement>('.body');
+const resizerSidebar = $('#resizer-sidebar');
+const resizerSplit = $('#resizer-split');
 const fileMenu = $('#file-menu');
 const fileInput = $<HTMLInputElement>('#file-input');
 const savedEl = $('#saved');
@@ -414,11 +431,21 @@ function applyView() {
   for (const btn of document.querySelectorAll<HTMLElement>('.seg-btn[data-view]')) {
     btn.classList.toggle('active', btn.dataset.view === state.view);
   }
+  // Teiler zwischen Editor und Vorschau nur in der geteilten Ansicht (Desktop)
+  resizerSplit.hidden = mqMobile.matches || state.view !== 'split';
 }
 
 function applySidebar() {
   sidebarEl.hidden = mqMobile.matches ? mobileView !== 'sidebar' : !state.sidebarOpen;
+  // Teiler an der Seitenleiste nur, wenn sie am Desktop sichtbar ist
+  resizerSidebar.hidden = mqMobile.matches || !state.sidebarOpen;
   applyMobileBtn();
+}
+
+function applySizes() {
+  bodyEl.style.setProperty('--sidebar-w', state.sidebarWidth + 'px');
+  bodyEl.style.setProperty('--editor-fr', String(state.editorFraction));
+  bodyEl.style.setProperty('--preview-fr', String(1 - state.editorFraction));
 }
 
 function applyFontSize() {
@@ -440,6 +467,7 @@ function renderAll() {
   applyTheme();
   applyView();
   applySidebar();
+  applySizes();
   applyFontSize();
 }
 
@@ -711,6 +739,65 @@ for (const btn of document.querySelectorAll<HTMLElement>('.seg-btn[data-view]'))
     applyView();
   });
 }
+
+// ---------- Verschiebbare Teiler ----------
+
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
+// Neue Breite/Aufteilung aus der Zeigerposition ableiten und anwenden.
+function resizeFrom(el: HTMLElement, clientX: number) {
+  if (el === resizerSidebar) {
+    const left = sidebarEl.getBoundingClientRect().left;
+    state.sidebarWidth = clamp(Math.round(clientX - left), SIDEBAR_MIN, SIDEBAR_MAX);
+  } else {
+    const left = editorPane.getBoundingClientRect().left;
+    const right = previewPane.getBoundingClientRect().right;
+    if (right > left) state.editorFraction = clamp((clientX - left) / (right - left), SPLIT_MIN, SPLIT_MAX);
+  }
+  applySizes();
+}
+
+function makeResizer(el: HTMLElement) {
+  el.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    el.setPointerCapture(e.pointerId);
+    el.classList.add('dragging');
+    document.body.classList.add('resizing');
+    const onMove = (ev: PointerEvent) => resizeFrom(el, ev.clientX);
+    const onUp = () => {
+      el.classList.remove('dragging');
+      document.body.classList.remove('resizing');
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerup', onUp);
+      persist();
+    };
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerup', onUp);
+  });
+  // Doppelklick setzt auf Standard zurück
+  el.addEventListener('dblclick', () => {
+    if (el === resizerSidebar) state.sidebarWidth = 244;
+    else state.editorFraction = 0.5;
+    applySizes();
+    persist();
+  });
+  // Tastatur: Pfeiltasten verschieben den Teiler
+  el.addEventListener('keydown', (e) => {
+    const dir = e.key === 'ArrowLeft' ? -1 : e.key === 'ArrowRight' ? 1 : 0;
+    if (!dir) return;
+    e.preventDefault();
+    if (el === resizerSidebar) {
+      state.sidebarWidth = clamp(state.sidebarWidth + dir * 16, SIDEBAR_MIN, SIDEBAR_MAX);
+    } else {
+      state.editorFraction = clamp(state.editorFraction + dir * 0.02, SPLIT_MIN, SPLIT_MAX);
+    }
+    applySizes();
+    persist();
+  });
+}
+makeResizer(resizerSidebar);
+makeResizer(resizerSplit);
 
 // Datei-Menü
 const btnFile = $('#btn-file');
