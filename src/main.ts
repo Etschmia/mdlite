@@ -1,9 +1,46 @@
-import { marked } from 'marked';
+import { marked, type TokenizerAndRendererExtension } from 'marked';
 import DOMPurify from 'dompurify';
+import katex from 'katex';
 import { extractFrontmatter, stripFrontmatter, applyFrontmatter, currentDate, type FrontmatterData } from './frontmatter';
+import 'katex/dist/katex.min.css';
 import './styles.css';
 
 marked.setOptions({ gfm: true, breaks: true });
+
+// ---------- Formeln (KaTeX) ----------
+
+function renderMath(tex: string, displayMode: boolean): string {
+  try {
+    return katex.renderToString(tex, { displayMode, throwOnError: false });
+  } catch {
+    return esc(tex);
+  }
+}
+
+const mathBlock: TokenizerAndRendererExtension = {
+  name: 'mathBlock',
+  level: 'block',
+  start: (src) => src.indexOf('$$'),
+  tokenizer(src) {
+    const match = /^\$\$([\s\S]+?)\$\$(?:\n+|$)/.exec(src);
+    if (match) return { type: 'mathBlock', raw: match[0], text: match[1].trim() };
+  },
+  renderer: (token) => renderMath(token.text, true),
+};
+
+const mathInline: TokenizerAndRendererExtension = {
+  name: 'mathInline',
+  level: 'inline',
+  start: (src) => src.indexOf('$'),
+  tokenizer(src) {
+    // $…$ ohne Leerzeichen direkt hinter/vor dem Dollar — "5 $ pro Stück" bleibt Text
+    const match = /^\$([^\s$](?:[^$\n]*[^\s$])?)\$/.exec(src);
+    if (match) return { type: 'mathInline', raw: match[0], text: match[1] };
+  },
+  renderer: (token) => renderMath(token.text, false),
+};
+
+marked.use({ extensions: [mathBlock, mathInline] });
 
 // ---------- State ----------
 
@@ -41,6 +78,57 @@ Alles bleibt in deinem Browser: kein Login, kein Server, deine Texte gehören di
   - [x] Tabs mit eigenen Namen (Doppelklick auf den Tab)
   - [ ] Dein erstes Dokument
 - Frontmatter über den \`{ }\`-Knopf in der Toolbar
+- Formeln mit KaTeX: \\\$E = mc^2\\\$ wird zu $E = mc^2$
+
+> Tipp: Nutze die Toolbar oder Tastenkürzel wie ⌘B und ⌘I.
+> Deine Arbeit wird automatisch gespeichert — komm einfach wieder.
+
+### Codeblock
+
+\`\`\`js
+function gruss(name) {
+  return \`Hallo, \${name}!\`.toUpperCase();
+}
+\`\`\`
+
+### Formeln
+
+Inline wie $E = mc^2$ — oder als eigener Block:
+
+$$
+\\int_a^b f(x)\\,dx = F(b) - F(a)
+$$
+
+### Tabelle
+
+| Feature   | Status |
+| --------- | :----: |
+| Vorschau  |   ✅   |
+| Tabs      |   ✅   |
+| Export    |   ✅   |
+
+[Mehr über Markdown](https://commonmark.org) · viel Spaß beim Schreiben!
+`;
+
+// Frühere Fassungen des Willkommenstexts: liegt eine davon unverändert im
+// localStorage, wird sie beim Laden durch die aktuelle ersetzt (bearbeitete
+// Dokumente bleiben unangetastet). Bei Änderungen an WELCOME den alten Text
+// hier anhängen.
+const WELCOME_LEGACY = [
+  `# Willkommen bei mdlite 👋
+
+Ein **schlanker** Markdown-Editor. Tippe links — die Vorschau rechts rendert *live*.
+Alles bleibt in deinem Browser: kein Login, kein Server, deine Texte gehören dir.
+
+## Was funktioniert
+
+- **Fett**, *kursiv*, ~~durchgestrichen~~ und \`inline-code\`
+- Aufzählungen und nummerierte Listen
+- Checklisten:
+  - [x] Live-Vorschau
+  - [x] Tabs mit eigenen Namen (Doppelklick auf den Tab)
+  - [ ] Dein erstes Dokument
+- Frontmatter über den \`{ }\`-Knopf in der Toolbar
 
 > Tipp: Nutze die Toolbar oder Tastenkürzel wie ⌘B und ⌘I.
 > Deine Arbeit wird automatisch gespeichert — komm einfach wieder.
@@ -62,7 +150,8 @@ function gruss(name) {
 | Export    |   ✅   |
 
 [Mehr über Markdown](https://commonmark.org) · viel Spaß beim Schreiben!
-`;
+`,
+];
 
 function uid(): string {
   return Math.random().toString(36).slice(2, 9);
@@ -95,7 +184,9 @@ function loadState(): PersistedState {
   } catch {
     /* korrupter Eintrag → Neustart mit Defaults */
   }
-  const docs = saved?.docs?.length ? saved.docs : [{ id: uid(), content: WELCOME }];
+  const docs = (saved?.docs?.length ? saved.docs : [{ id: uid(), content: WELCOME }]).map((d) =>
+    WELCOME_LEGACY.includes(d.content) ? { ...d, content: WELCOME } : d,
+  );
   return {
     docs,
     activeId: saved?.activeId && docs.some((d) => d.id === saved!.activeId) ? saved.activeId : docs[0].id,
@@ -458,6 +549,8 @@ const formatActions: Record<string, () => void> = {
   image: () => insertText('![Bildbeschreibung](https://)'),
   table: () => insertText('\n| Spalte A | Spalte B |\n| --- | --- |\n| Wert | Wert |\n'),
   codeblock: () => insertText('\n```\n\n```\n', 5),
+  math: () => wrapSelection('$', '$', 'E = mc^2'),
+  mathblock: () => insertText('\n$$\n\n$$\n', 4),
 };
 
 // ---------- Datei-Operationen ----------
@@ -494,7 +587,10 @@ const EXPORT_CSS = `body{max-width:760px;margin:40px auto;padding:0 24px;font-fa
 function exportHtml() {
   const doc = activeDoc();
   const body = DOMPurify.sanitize(marked.parse(stripFrontmatter(doc.content)) as string);
-  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(titleOf(doc))}</title><style>${EXPORT_CSS}</style></head><body>${body}</body></html>`;
+  const katexCss = body.includes('class="katex')
+    ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css">'
+    : '';
+  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(titleOf(doc))}</title>${katexCss}<style>${EXPORT_CSS}</style></head><body>${body}</body></html>`;
   download(filenameOf(doc) + '.html', html, 'text/html;charset=utf-8');
 }
 

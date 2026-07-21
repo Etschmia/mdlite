@@ -168,6 +168,7 @@ button { font-family: inherit; }
 .preview-pane[hidden] { display: none; }
 .prose-wrap { flex: 1; overflow: auto; padding: 28px 34px; }
 .prose-wrap .prose { max-width: 760px; margin: 0 auto; }
+.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
 
 /* Frontmatter card in preview */
 .fm-card {
