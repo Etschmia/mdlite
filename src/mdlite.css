@@ -1,0 +1,62 @@
+/* ============================================================
+   mdlite — geteilte Prose-Styles für die renderMarkdown()-Ausgabe.
+   Aus tokens.css extrahiert, `.prose` -> `.mdlite-prose` umbenannt und
+   mit Token-Fallbacks versehen, damit die Vorschau in jedem Host korrekt
+   themt: wo der Host die Depot-Design-Tokens (--foreground, --border, …)
+   definiert, werden sie geerbt; wo nicht, greifen die Fallback-Werte.
+   Der Host schaltet Light/Dark über seine eigenen Variablen — die Vorschau
+   folgt automatisch.
+   ============================================================ */
+
+.mdlite-prose {
+  --md-fg:           var(--foreground, #2a2622);
+  --md-border:       var(--border, #e7e2d9);
+  --md-link:         var(--link, #1b7a52);
+  --md-primary:      var(--primary, #1b7a52);
+  --md-muted:        var(--muted, #f2efe8);
+  --md-muted-fg:     var(--muted-foreground, #6b655c);
+  --md-font-sans:    var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  --md-font-display: var(--font-display, var(--font-sans, ui-sans-serif, system-ui, sans-serif));
+  --md-font-mono:    var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  --md-code-bg:      var(--code-bg, var(--muted, #f7f5ef));
+  --md-code-border:  var(--code-border, var(--border, #e7e2d9));
+  --md-code-inline:  var(--code-inline-bg, var(--muted, #f2efe8));
+
+  color: var(--md-fg);
+  font-family: var(--md-font-sans);
+  font-size: 15px;
+  line-height: 1.72;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.mdlite-prose > *:first-child { margin-top: 0; }
+.mdlite-prose > *:last-child { margin-bottom: 0; }
+.mdlite-prose h1, .mdlite-prose h2, .mdlite-prose h3, .mdlite-prose h4 {
+  font-family: var(--md-font-display); letter-spacing: -.02em; line-height: 1.2; margin: 1.6em 0 .6em;
+}
+.mdlite-prose h1 { font-size: 1.9em; font-weight: 800; }
+.mdlite-prose h2 { font-size: 1.5em; font-weight: 700; padding-bottom: .24em; border-bottom: 1px solid var(--md-border); }
+.mdlite-prose h3 { font-size: 1.22em; font-weight: 700; }
+.mdlite-prose p { margin: .85em 0; }
+.mdlite-prose a { color: var(--md-link); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.mdlite-prose ul, .mdlite-prose ol { margin: .85em 0; padding-left: 1.5em; }
+.mdlite-prose li { margin: .25em 0; }
+.mdlite-prose blockquote {
+  margin: 1em 0; padding: .4em 1.1em; border-left: 3px solid var(--md-primary);
+  background: color-mix(in oklab, var(--md-primary) 6%, transparent);
+  border-radius: 0 10px 10px 0; color: var(--md-muted-fg);
+}
+.mdlite-prose code {
+  font-family: var(--md-font-mono); font-size: .88em; background: var(--md-code-inline);
+  padding: .15em .4em; border-radius: 6px;
+}
+.mdlite-prose pre {
+  background: var(--md-code-bg); border: 1px solid var(--md-code-border); border-radius: 12px;
+  padding: 14px 16px; overflow: auto; margin: 1em 0;
+}
+.mdlite-prose pre code { background: none; padding: 0; font-size: 13px; line-height: 1.6; }
+.mdlite-prose img { max-width: 100%; height: auto; }
+.mdlite-prose table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+.mdlite-prose th, .mdlite-prose td { border: 1px solid var(--md-border); padding: 8px 12px; text-align: left; }
+.mdlite-prose th { background: var(--md-muted); font-weight: 600; }
+.mdlite-prose hr { border: none; border-top: 1px solid var(--md-border); margin: 1.8em 0; }

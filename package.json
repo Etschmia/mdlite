@@ -3,6 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "main": "src/lib.ts",
+  "module": "src/lib.ts",
+  "types": "src/lib.ts",
+  "exports": {
+    ".": "./src/lib.ts",
+    "./mdlite.css": "./src/mdlite.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
