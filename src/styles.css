@@ -114,18 +114,23 @@ button { font-family: inherit; }
 
 /* Verschiebbare Teiler zwischen den Bereichen */
 .resizer {
-  flex: none; width: 7px; align-self: stretch; position: relative; z-index: 5;
-  cursor: col-resize; background: transparent; touch-action: none;
+  flex: none; width: 1px; align-self: stretch; position: relative; z-index: 5;
+  cursor: col-resize; background: var(--border); touch-action: none;
 }
 .resizer[hidden] { display: none; }
+/* Breite, unsichtbare Greifflaeche – liegt ueber der Naht, ohne Layout-Breite zu belegen */
 .resizer::before {
-  content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
-  width: 1px; transform: translateX(-50%); background: var(--border);
-  transition: width 0.12s, background 0.12s;
+  content: ''; position: absolute; top: 0; bottom: 0; left: -3px; right: -3px;
 }
-.resizer:hover::before,
-.resizer:focus-visible::before,
-.resizer.dragging::before { width: 3px; background: var(--primary); }
+/* Hervorhebung beim Hover/Ziehen – ueberlagert die 1px-Linie rein optisch, kein Layout-Versatz */
+.resizer::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 3px;
+  transform: translateX(-50%); background: var(--primary);
+  opacity: 0; transition: opacity 0.12s;
+}
+.resizer:hover::after,
+.resizer:focus-visible::after,
+.resizer.dragging::after { opacity: 1; }
 .resizer:focus-visible { outline: none; }
 body.resizing, body.resizing * { cursor: col-resize !important; user-select: none !important; }
 .sidebar-head { padding: 14px 14px 8px; display: flex; align-items: center; justify-content: space-between; }
