@@ -95,6 +95,15 @@ button { font-family: inherit; }
   width: 130px; border: 1px solid var(--ring); border-radius: 6px; background: var(--card);
   color: var(--foreground); font: 600 13px var(--font-sans); padding: 2px 6px; outline: none;
 }
+/* Stift zum Umbenennen – erst bei Hover/Fokus sichtbar */
+.rename-btn {
+  width: 18px; height: 18px; border-radius: 6px; display: inline-flex; align-items: center;
+  justify-content: center; flex: none; border: none; background: transparent; color: inherit;
+  cursor: pointer; padding: 0; opacity: 0; transition: opacity 0.12s;
+}
+.tab:hover .rename-btn, .tab.active .rename-btn, .rename-btn:focus-visible { opacity: 0.75; }
+.rename-btn:hover { opacity: 1; background: var(--muted); color: var(--primary); }
+.tab.active .rename-btn:hover { background: var(--background); }
 .newtab-btn {
   width: 30px; height: 30px; border-radius: 9px; border: 1px dashed var(--border);
   background: transparent; color: var(--muted-foreground); display: inline-flex;
@@ -145,7 +154,15 @@ body.resizing, body.resizing * { cursor: col-resize !important; user-select: non
 .doc-item:hover { background: var(--muted); }
 .doc-item.active { background: var(--muted); border-color: var(--border); }
 .doc-item svg { flex: none; margin-top: 2px; opacity: 0.7; }
-.doc-item .meta { min-width: 0; }
+.doc-item .meta { min-width: 0; flex: 1 1 auto; }
+.doc-item .rename-btn { margin-top: 1px; }
+.doc-item:hover .rename-btn, .doc-item.active .rename-btn, .doc-item .rename-btn:focus-visible { opacity: 0.7; }
+.doc-item .rename-btn:hover { opacity: 1; background: var(--background); }
+.doc-item .rename-input-doc {
+  display: block; width: 100%; border: 1px solid var(--ring); border-radius: 6px;
+  background: var(--background); color: var(--foreground); font: 600 13px var(--font-sans);
+  padding: 1px 5px; outline: none;
+}
 .doc-item .title { display: block; font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .doc-item .snippet { display: block; font-size: 11px; color: var(--muted-foreground); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 

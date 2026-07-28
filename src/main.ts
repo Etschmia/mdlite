@@ -83,7 +83,7 @@ Alles bleibt in deinem Browser: kein Login, kein Server, deine Texte gehören di
 - Aufzählungen und nummerierte Listen
 - Checklisten:
   - [x] Live-Vorschau
-  - [x] Tabs mit eigenen Namen (Doppelklick auf den Tab)
+  - [x] Tabs mit eigenen Namen (Stift oder Doppelklick – im Reiter wie in der Sidebar)
   - [ ] Dein erstes Dokument
 - Frontmatter über den \`{ }\`-Knopf in der Toolbar
 - Formeln mit KaTeX: \\\$E = mc^2\\\$ wird zu $E = mc^2$
@@ -148,6 +148,51 @@ function gruss(name) {
   return \`Hallo, \${name}!\`.toUpperCase();
 }
 \`\`\`
+
+### Tabelle
+
+| Feature   | Status |
+| --------- | :----: |
+| Vorschau  |   ✅   |
+| Tabs      |   ✅   |
+| Export    |   ✅   |
+
+[Mehr über Markdown](https://commonmark.org) · viel Spaß beim Schreiben!
+`,
+  `# Willkommen bei mdlite 👋
+
+Ein **schlanker** Markdown-Editor. Tippe links — die Vorschau rechts rendert *live*.
+Alles bleibt in deinem Browser: kein Login, kein Server, deine Texte gehören dir.
+
+## Was funktioniert
+
+- **Fett**, *kursiv*, ~~durchgestrichen~~ und \`inline-code\`
+- Aufzählungen und nummerierte Listen
+- Checklisten:
+  - [x] Live-Vorschau
+  - [x] Tabs mit eigenen Namen (Doppelklick auf den Tab)
+  - [ ] Dein erstes Dokument
+- Frontmatter über den \`{ }\`-Knopf in der Toolbar
+- Formeln mit KaTeX: \\\$E = mc^2\\\$ wird zu $E = mc^2$
+
+> Tipp: Nutze die Toolbar oder Tastenkürzel wie ⌘B und ⌘I.
+> Deine Arbeit wird automatisch gespeichert — komm einfach wieder.
+
+### Codeblock
+
+\`\`\`js
+function gruss(name) {
+  return \`Hallo, \${name}!\`.toUpperCase();
+}
+\`\`\`
+
+### Formeln
+
+Inline wie $E = mc^2$ — oder als eigener Block:
+
+$$
+\\int_a^b f(x)\\,dx = F(b) - F(a)
+$$
 
 ### Tabelle
 
@@ -304,6 +349,23 @@ function renderPreview() {
   preview.innerHTML = DOMPurify.sanitize(marked.parse(stripFrontmatter(doc.content)) as string);
 }
 
+const PENCIL_SVG =
+  `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.3 2.3a1.6 1.6 0 0 1 2.3 2.3L5.5 12.7 2.5 13.5l.8-3z"/></svg>`;
+
+/** Stift-Knopf, der den Namen an Ort und Stelle editierbar macht (wie in ../term) */
+function makeRenameBtn(doc: Doc, host: HTMLElement, cls: string): HTMLButtonElement {
+  const btn = document.createElement('button');
+  btn.className = 'rename-btn';
+  btn.title = 'Umbenennen';
+  btn.setAttribute('aria-label', 'Umbenennen');
+  btn.innerHTML = PENCIL_SVG;
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startRename(doc, host, cls);
+  });
+  return btn;
+}
+
 function renderTabs() {
   tabsEl.textContent = '';
   for (const doc of state.docs) {
@@ -316,20 +378,35 @@ function renderTabs() {
       e.stopPropagation();
       closeDoc(doc.id);
     });
-    tab.querySelector('.title')!.addEventListener('dblclick', (e) => {
+    const title = tab.querySelector('.title') as HTMLElement;
+    title.addEventListener('dblclick', (e) => {
       e.stopPropagation();
-      startRename(doc, tab);
+      startRename(doc, tab, 'rename-input');
     });
+    // Klick auf den Namen des bereits aktiven Tabs öffnet die Eingabe direkt
+    title.addEventListener('click', (e) => {
+      if (doc.id !== state.activeId) return;
+      e.stopPropagation();
+      startRename(doc, tab, 'rename-input');
+    });
+    tab.insertBefore(makeRenameBtn(doc, tab, 'rename-input'), tab.querySelector('.close'));
     tabsEl.appendChild(tab);
   }
 }
 
-function startRename(doc: Doc, tab: HTMLElement) {
-  const titleSpan = tab.querySelector('.title') as HTMLElement;
+/**
+ * Namen im Element `host` (Tab oder Sidebar-Eintrag) inline editieren: die
+ * `.title`-Span wird durch ein Eingabefeld ersetzt, Enter/Blur speichert,
+ * Esc bricht ab. Leerer Wert = wieder automatischer Titel aus der Überschrift.
+ */
+function startRename(doc: Doc, host: HTMLElement, cls: string) {
+  if (host.querySelector('input')) return; // schon im Edit-Modus
+  const titleSpan = host.querySelector('.title') as HTMLElement;
   const input = document.createElement('input');
-  input.className = 'rename-input';
+  input.className = cls;
   input.value = doc.name || titleOf(doc);
   input.maxLength = 60;
+  input.spellcheck = false;
   titleSpan.replaceWith(input);
   input.focus();
   input.select();
@@ -353,18 +430,38 @@ function startRename(doc: Doc, tab: HTMLElement) {
   });
   input.addEventListener('blur', () => commit(true));
   input.addEventListener('click', (e) => e.stopPropagation());
+  input.addEventListener('dblclick', (e) => e.stopPropagation());
 }
 
 function renderSidebar() {
   $('#doc-count').textContent = String(state.docs.length);
   docListEl.textContent = '';
   for (const doc of state.docs) {
-    const item = document.createElement('button');
+    const item = document.createElement('div');
     item.className = 'doc-item' + (doc.id === state.activeId ? ' active' : '');
+    item.tabIndex = 0;
+    item.setAttribute('role', 'button');
     item.innerHTML =
       `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>` +
       `<span class="meta"><span class="title">${esc(titleOf(doc))}</span><span class="snippet">${esc(snippetOf(doc))}</span></span>`;
     item.addEventListener('click', () => selectDoc(doc.id));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectDoc(doc.id);
+      }
+    });
+    const title = item.querySelector('.title') as HTMLElement;
+    title.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      startRename(doc, item, 'rename-input-doc');
+    });
+    title.addEventListener('click', (e) => {
+      if (doc.id !== state.activeId) return;
+      e.stopPropagation();
+      startRename(doc, item, 'rename-input-doc');
+    });
+    item.appendChild(makeRenameBtn(doc, item, 'rename-input-doc'));
     docListEl.appendChild(item);
   }
 }

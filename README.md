@@ -9,7 +9,7 @@ wo er aufgehört hat.
 ## Features
 
 - **Split-Ansicht** mit Live-Vorschau (umschaltbar: Editor / Geteilt / Vorschau)
-- **Tabs** mit frei vergebbaren Namen (Doppelklick auf den Tab; leerer Name = automatischer Titel aus der ersten Überschrift)
+- **Tabs** mit frei vergebbaren Namen (Stift-Knopf oder Doppelklick – im Reiter wie in der Dokumente-Sidebar; leerer Name = automatischer Titel aus der ersten Überschrift)
 - **Dokumenten-Seitenleiste** mit Titel und Snippet
 - **Formatierungs-Toolbar** + Tastenkürzel (⌘B/I/E/K, ⌘S/N/O, Tab = 2 Leerzeichen)
 - **Frontmatter-Editor**: einfacher Key/Value-Dialog, der den YAML-Block am Dokumentanfang pflegt; in der Vorschau als dezente Karte dargestellt
