@@ -351,3 +351,13 @@ body.resizing, body.resizing * { cursor: col-resize !important; user-select: non
   .preview-pane { display: flex !important; }
   .prose-wrap { overflow: visible; padding: 0; }
 }
+
+/* Auswahlfeld (Sprache) */
+.select {
+  height: 34px; padding: 0 32px 0 12px; border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--card) no-repeat right 10px center / 14px
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");
+  color: var(--foreground); font: 500 13px var(--font-sans); cursor: pointer; appearance: none; flex: none;
+}
+.select:hover { background-color: var(--muted); }
+.select:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }

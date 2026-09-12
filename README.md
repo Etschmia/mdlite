@@ -15,6 +15,9 @@ wo er aufgehört hat.
 - **Frontmatter-Editor**: einfacher Key/Value-Dialog, der den YAML-Block am Dokumentanfang pflegt; in der Vorschau als dezente Karte dargestellt
 - **Datei-Operationen**: `.md` öffnen und speichern, Export als eigenständiges HTML, Drucken/PDF über den Browser
 - **Hell/Dunkel**-Umschaltung, Schriftgröße, Zeilennummern
+- **Mehrsprachig**: Deutsch, Englisch, Armenisch, Russisch (Einstellungen → Sprache). Voreinstellung ist die
+  zuletzt gewählte Sprache, sonst die Browser-Sprache, sonst Deutsch; das unveränderte Willkommensdokument
+  wechselt mit. Alle Texte liegen in `src/i18n.ts`, statische Texte in `index.html` werden über `data-i18n`-Attribute befüllt
 - Statusleiste mit Wort-/Zeichen-/Zeilenzahl und Cursorposition
 
 ## Bewusst weggelassen

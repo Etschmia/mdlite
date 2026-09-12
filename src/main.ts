@@ -2,6 +2,7 @@ import { marked, type TokenizerAndRendererExtension } from 'marked';
 import DOMPurify from 'dompurify';
 import katex from 'katex';
 import { extractFrontmatter, stripFrontmatter, applyFrontmatter, currentDate, type FrontmatterData } from './frontmatter';
+import { t, tn, setLang, getLang, detectLang, isLang, welcomeTexts, MESSAGES, type Lang, type MessageKey } from './i18n';
 import 'katex/dist/katex.min.css';
 import './styles.css';
 
@@ -61,6 +62,7 @@ interface PersistedState {
   fontSize: number;
   sidebarWidth: number;
   editorFraction: number;
+  lang: Lang;
 }
 
 const LS_KEY = 'mdlite.v1';
@@ -72,56 +74,16 @@ const SIDEBAR_MAX = 460;
 const SPLIT_MIN = 0.2; // Editor mind. 20 % der Editor+Vorschau-Fläche
 const SPLIT_MAX = 0.8;
 
-const WELCOME = `# Willkommen bei mdlite 👋
-
-Ein **schlanker** Markdown-Editor. Tippe links — die Vorschau rechts rendert *live*.
-Alles bleibt in deinem Browser: kein Login, kein Server, deine Texte gehören dir.
-
-## Was funktioniert
-
-- **Fett**, *kursiv*, ~~durchgestrichen~~ und \`inline-code\`
-- Aufzählungen und nummerierte Listen
-- Checklisten:
-  - [x] Live-Vorschau
-  - [x] Tabs mit eigenen Namen (Stift oder Doppelklick – im Reiter wie in der Sidebar)
-  - [ ] Dein erstes Dokument
-- Frontmatter über den \`{ }\`-Knopf in der Toolbar
-- Formeln mit KaTeX: \\\$E = mc^2\\\$ wird zu $E = mc^2$
-
-> Tipp: Nutze die Toolbar oder Tastenkürzel wie ⌘B und ⌘I.
-> Deine Arbeit wird automatisch gespeichert — komm einfach wieder.
-
-### Codeblock
-
-\`\`\`js
-function gruss(name) {
-  return \`Hallo, \${name}!\`.toUpperCase();
+/** Willkommenstext in der aktuellen Sprache */
+function welcome(): string {
+  return MESSAGES[getLang()].welcome;
 }
-\`\`\`
 
-### Formeln
-
-Inline wie $E = mc^2$ — oder als eigener Block:
-
-$$
-\\int_a^b f(x)\\,dx = F(b) - F(a)
-$$
-
-### Tabelle
-
-| Feature   | Status |
-| --------- | :----: |
-| Vorschau  |   ✅   |
-| Tabs      |   ✅   |
-| Export    |   ✅   |
-
-[Mehr über Markdown](https://commonmark.org) · viel Spaß beim Schreiben!
-`;
-
-// Frühere Fassungen des Willkommenstexts: liegt eine davon unverändert im
-// localStorage, wird sie beim Laden durch die aktuelle ersetzt (bearbeitete
-// Dokumente bleiben unangetastet). Bei Änderungen an WELCOME den alten Text
-// hier anhängen.
+// Frühere Fassungen des Willkommenstexts: liegt eine davon (oder der aktuelle
+// Text einer anderen Sprache) unverändert im localStorage, wird sie beim Laden
+// und beim Sprachwechsel durch die aktuelle Fassung ersetzt (bearbeitete
+// Dokumente bleiben unangetastet). Bei Änderungen an `welcome` in i18n.ts den
+// alten Text hier anhängen.
 const WELCOME_LEGACY = [
   `# Willkommen bei mdlite 👋
 
@@ -206,16 +168,21 @@ $$
 `,
 ];
 
+/** Unveränderter Willkommenstext (irgendeine Sprache oder Altfassung)? */
+function isPristineWelcome(content: string): boolean {
+  return WELCOME_LEGACY.includes(content) || welcomeTexts().includes(content);
+}
+
 function uid(): string {
   return Math.random().toString(36).slice(2, 9);
 }
 
 function derivedTitle(content: string): string {
   for (const line of (content || '').split('\n')) {
-    const t = line.replace(/^#+\s*/, '').trim();
-    if (t && t !== '---') return t.slice(0, 40);
+    const text = line.replace(/^#+\s*/, '').trim();
+    if (text && text !== '---') return text.slice(0, 40);
   }
-  return 'Unbenannt';
+  return t('untitled');
 }
 
 function titleOf(doc: Doc): string {
@@ -227,7 +194,7 @@ function snippetOf(doc: Doc): string {
     .split('\n')
     .map((l) => l.replace(/^[#>\-*\s]+/, '').trim())
     .filter(Boolean);
-  return (lines[1] || lines[0] || 'Leeres Dokument').slice(0, 48);
+  return (lines[1] || lines[0] || t('emptyDoc')).slice(0, 48);
 }
 
 function loadState(): PersistedState {
@@ -237,10 +204,14 @@ function loadState(): PersistedState {
   } catch {
     /* korrupter Eintrag → Neustart mit Defaults */
   }
-  const docs = (saved?.docs?.length ? saved.docs : [{ id: uid(), content: WELCOME }]).map((d) =>
-    WELCOME_LEGACY.includes(d.content) ? { ...d, content: WELCOME } : d,
+  // Sprache zuerst festlegen: gespeicherte Wahl, sonst Browser-Sprache, sonst Deutsch
+  const lang: Lang = isLang(saved?.lang) ? saved.lang : detectLang();
+  setLang(lang);
+  const docs = (saved?.docs?.length ? saved.docs : [{ id: uid(), content: welcome() }]).map((d) =>
+    isPristineWelcome(d.content) ? { ...d, content: welcome() } : d,
   );
   return {
+    lang,
     docs,
     activeId: saved?.activeId && docs.some((d) => d.id === saved!.activeId) ? saved.activeId : docs[0].id,
     theme: saved?.theme === 'dark' ? 'dark' : 'light',
@@ -293,25 +264,27 @@ const fileInput = $<HTMLInputElement>('#file-input');
 const savedEl = $('#saved');
 const savedLabel = $('#saved-label');
 const btnSidebar = $('#btn-sidebar');
+const langSelect = $<HTMLSelectElement>('#lang-select');
 
 // ---------- Mobile: eine Ansicht in voller Breite ----------
 
 type MobileView = 'sidebar' | 'editor' | 'preview';
 const mqMobile = window.matchMedia('(max-width: 720px)');
 const MOBILE_CYCLE: Record<MobileView, MobileView> = { sidebar: 'editor', editor: 'preview', preview: 'sidebar' };
-const MOBILE_LABELS: Record<MobileView, string> = { sidebar: 'Dokumente', editor: 'Editor', preview: 'Vorschau' };
+const MOBILE_LABELS: Record<MobileView, MessageKey> = { sidebar: 'mobileSidebar', editor: 'mobileEditor', preview: 'mobilePreview' };
 let mobileView: MobileView = 'editor';
 
 function applyMobileBtn() {
   if (mqMobile.matches) {
     const next = MOBILE_CYCLE[mobileView];
     btnSidebar.dataset.next = next;
-    btnSidebar.title = `Ansicht wechseln: ${MOBILE_LABELS[next]}`;
-    btnSidebar.setAttribute('aria-label', `Ansicht wechseln zu ${MOBILE_LABELS[next]}`);
+    const view = t(MOBILE_LABELS[next]);
+    btnSidebar.title = t('switchView', { view });
+    btnSidebar.setAttribute('aria-label', t('switchViewAria', { view }));
   } else {
     delete btnSidebar.dataset.next;
-    btnSidebar.title = 'Seitenleiste ein-/ausblenden';
-    btnSidebar.setAttribute('aria-label', 'Seitenleiste');
+    btnSidebar.title = t('sidebarToggle');
+    btnSidebar.setAttribute('aria-label', t('sidebar'));
   }
 }
 
@@ -356,8 +329,8 @@ const PENCIL_SVG =
 function makeRenameBtn(doc: Doc, host: HTMLElement, cls: string): HTMLButtonElement {
   const btn = document.createElement('button');
   btn.className = 'rename-btn';
-  btn.title = 'Umbenennen';
-  btn.setAttribute('aria-label', 'Umbenennen');
+  btn.title = t('rename');
+  btn.setAttribute('aria-label', t('rename'));
   btn.innerHTML = PENCIL_SVG;
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -372,7 +345,7 @@ function renderTabs() {
     const tab = document.createElement('div');
     tab.className = 'tab' + (doc.id === state.activeId ? ' active' : '');
     tab.innerHTML = `<span class="dot"></span><span class="title">${esc(titleOf(doc))}</span>` +
-      `<button class="close" title="Schließen" aria-label="Tab schließen"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
+      `<button class="close" title="${esc(t('close'))}" aria-label="${esc(t('closeTab'))}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
     tab.addEventListener('click', () => selectDoc(doc.id));
     tab.querySelector('.close')!.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -489,9 +462,9 @@ function renderGutter() {
 function renderStats() {
   const content = ta.value;
   const words = (content.trim().match(/\S+/g) || []).length;
-  $('#stat-words').textContent = `${words} Wörter`;
-  $('#stat-chars').textContent = `${content.length} Zeichen`;
-  $('#stat-lines').textContent = `${content.split('\n').length} Zeilen`;
+  $('#stat-words').textContent = tn('words', words);
+  $('#stat-chars').textContent = tn('chars', content.length);
+  $('#stat-lines').textContent = tn('lines', content.split('\n').length);
 }
 
 function renderCursor() {
@@ -499,12 +472,12 @@ function renderCursor() {
   const before = ta.value.slice(0, pos);
   const line = before.split('\n').length;
   const col = pos - before.lastIndexOf('\n');
-  $('#stat-cursor').textContent = `Zeile ${line}, Sp. ${col}`;
+  $('#stat-cursor').textContent = t('cursor', { line, col });
 }
 
 function renderSaved() {
   savedEl.classList.toggle('unsaved', !fileSaved);
-  savedLabel.textContent = fileSaved ? 'Gespeichert' : 'Ungespeichert';
+  savedLabel.textContent = fileSaved ? t('saved') : t('unsaved');
 }
 
 function applyTheme() {
@@ -549,7 +522,44 @@ function applyFontSize() {
   ta.style.fontSize = state.fontSize + 'px';
   gutter.style.fontSize = state.fontSize + 'px';
   $('#fontsize-value').textContent = String(state.fontSize);
-  $('#fontsize-current').textContent = String(state.fontSize);
+  $('#fontsize-current').textContent = t('fontSizeCurrent', { n: state.fontSize });
+}
+
+/** Statische Texte aus index.html anhand der data-i18n-Attribute befüllen */
+function applyI18n() {
+  const lang = getLang();
+  document.documentElement.lang = lang;
+  document.title = t('appTitle');
+  for (const el of document.querySelectorAll<HTMLElement>('[data-i18n]')) {
+    el.textContent = t(el.dataset.i18n as MessageKey);
+  }
+  for (const el of document.querySelectorAll<HTMLElement>('[data-i18n-title]')) {
+    el.title = t(el.dataset.i18nTitle as MessageKey);
+  }
+  for (const el of document.querySelectorAll<HTMLElement>('[data-i18n-aria]')) {
+    el.setAttribute('aria-label', t(el.dataset.i18nAria as MessageKey));
+  }
+  for (const el of document.querySelectorAll<HTMLElement>('[data-i18n-placeholder]')) {
+    el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder as MessageKey));
+  }
+  for (const el of document.querySelectorAll<HTMLElement>('[data-i18n-content]')) {
+    el.setAttribute('content', t(el.dataset.i18nContent as MessageKey));
+  }
+  langSelect.value = lang;
+  applyMobileBtn();
+}
+
+/** Sprache wechseln: State, Oberfläche und unveränderte Willkommensdokumente */
+function changeLang(lang: Lang) {
+  if (lang === state.lang) return;
+  state.lang = lang;
+  setLang(lang);
+  for (const doc of state.docs) {
+    if (isPristineWelcome(doc.content)) doc.content = welcome();
+  }
+  persist();
+  applyI18n();
+  renderAll();
 }
 
 function renderAll() {
@@ -581,7 +591,7 @@ function selectDoc(id: string) {
   renderAll();
 }
 
-function newDoc(content = '# Unbenannt\n\n', name?: string) {
+function newDoc(content = `# ${t('untitled')}\n\n`, name?: string) {
   if (mqMobile.matches) mobileView = 'editor';
   const doc: Doc = { id: uid(), content, name };
   state.docs.push(doc);
@@ -594,7 +604,7 @@ function newDoc(content = '# Unbenannt\n\n', name?: string) {
 function closeDoc(id: string) {
   const idx = state.docs.findIndex((d) => d.id === id);
   state.docs = state.docs.filter((d) => d.id !== id);
-  if (!state.docs.length) state.docs = [{ id: uid(), content: '# Unbenannt\n\n' }];
+  if (!state.docs.length) state.docs = [{ id: uid(), content: `# ${t('untitled')}\n\n` }];
   if (state.activeId === id) {
     state.activeId = (state.docs[Math.max(0, idx - 1)] || state.docs[0]).id;
   }
@@ -659,10 +669,10 @@ function insertText(text: string, caretBack = 0) {
 }
 
 const formatActions: Record<string, () => void> = {
-  bold: () => wrapSelection('**', '**', 'fett'),
-  italic: () => wrapSelection('*', '*', 'kursiv'),
-  strike: () => wrapSelection('~~', '~~', 'durchgestrichen'),
-  code: () => wrapSelection('`', '`', 'code'),
+  bold: () => wrapSelection('**', '**', t('phBold')),
+  italic: () => wrapSelection('*', '*', t('phItalic')),
+  strike: () => wrapSelection('~~', '~~', t('phStrike')),
+  code: () => wrapSelection('`', '`', t('phCode')),
   h1: () => linePrefix('# '),
   h2: () => linePrefix('## '),
   h3: () => linePrefix('### '),
@@ -670,9 +680,9 @@ const formatActions: Record<string, () => void> = {
   ol: () => linePrefix('', true),
   check: () => linePrefix('- [ ] '),
   quote: () => linePrefix('> '),
-  link: () => wrapSelection('[', '](https://)', 'Text'),
-  image: () => insertText('![Bildbeschreibung](https://)'),
-  table: () => insertText('\n| Spalte A | Spalte B |\n| --- | --- |\n| Wert | Wert |\n'),
+  link: () => wrapSelection('[', '](https://)', t('phLink')),
+  image: () => insertText(`![${t('phImage')}](https://)`),
+  table: () => insertText(`\n| ${t('phColA')} | ${t('phColB')} |\n| --- | --- |\n| ${t('phCell')} | ${t('phCell')} |\n`),
   codeblock: () => insertText('\n```\n\n```\n', 5),
   math: () => wrapSelection('$', '$', 'E = mc^2'),
   mathblock: () => insertText('\n$$\n\n$$\n', 4),
@@ -682,10 +692,10 @@ const formatActions: Record<string, () => void> = {
 
 function filenameOf(doc: Doc): string {
   const base = titleOf(doc)
-    .replace(/[^\wäöüÄÖÜß\- ]+/g, '')
+    .replace(/[^\p{L}\p{N}_\- ]+/gu, '')
     .trim()
     .replace(/\s+/g, '-');
-  return base || 'dokument';
+  return base || t('filenameFallback');
 }
 
 function download(name: string, content: string, type: string) {
@@ -715,7 +725,7 @@ function exportHtml() {
   const katexCss = body.includes('class="katex')
     ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css">'
     : '';
-  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(titleOf(doc))}</title>${katexCss}<style>${EXPORT_CSS}</style></head><body>${body}</body></html>`;
+  const html = `<!doctype html><html lang="${getLang()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(titleOf(doc))}</title>${katexCss}<style>${EXPORT_CSS}</style></head><body>${body}</body></html>`;
   download(filenameOf(doc) + '.html', html, 'text/html;charset=utf-8');
 }
 
@@ -757,9 +767,9 @@ function fmAddRow(key = '', value = '') {
   const row = document.createElement('div');
   row.className = 'fm-row';
   row.innerHTML =
-    `<input class="key" type="text" placeholder="schlüssel" spellcheck="false">` +
-    `<input class="value" type="text" placeholder="Wert">` +
-    `<button class="del" title="Eintrag löschen" aria-label="Eintrag löschen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>`;
+    `<input class="key" type="text" placeholder="${esc(t('fmKeyPlaceholder'))}" spellcheck="false">` +
+    `<input class="value" type="text" placeholder="${esc(t('fmValuePlaceholder'))}">` +
+    `<button class="del" title="${esc(t('fmDelete'))}" aria-label="${esc(t('fmDelete'))}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>`;
   (row.querySelector('.key') as HTMLInputElement).value = key;
   (row.querySelector('.value') as HTMLInputElement).value = value;
   row.querySelector('.del')!.addEventListener('click', () => row.remove());
@@ -957,9 +967,12 @@ $('#set-dark').addEventListener('click', () => {
   persist();
   applyTheme();
 });
+langSelect.addEventListener('change', () => {
+  if (isLang(langSelect.value)) changeLang(langSelect.value);
+});
 $('#reset-all').addEventListener('click', () => {
-  if (!confirm('Wirklich alle Dokumente löschen? Das kann nicht rückgängig gemacht werden.')) return;
-  state.docs = [{ id: uid(), content: WELCOME }];
+  if (!confirm(t('resetConfirm'))) return;
+  state.docs = [{ id: uid(), content: welcome() }];
   state.activeId = state.docs[0].id;
   fileSaved = true;
   persist();
@@ -1012,5 +1025,6 @@ document.addEventListener('keydown', (e) => {
 
 // ---------- Start ----------
 
+applyI18n();
 applyLnToggle();
 renderAll();
