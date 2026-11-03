@@ -723,7 +723,7 @@ function exportHtml() {
   const doc = activeDoc();
   const body = DOMPurify.sanitize(marked.parse(stripFrontmatter(doc.content)) as string);
   const katexCss = body.includes('class="katex')
-    ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css">'
+    ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css">'
     : '';
   const html = `<!doctype html><html lang="${getLang()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(titleOf(doc))}</title>${katexCss}<style>${EXPORT_CSS}</style></head><body>${body}</body></html>`;
   download(filenameOf(doc) + '.html', html, 'text/html;charset=utf-8');
